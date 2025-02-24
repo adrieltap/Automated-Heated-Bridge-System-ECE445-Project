@@ -11,9 +11,9 @@
 5. Do we need heat sinks?
 6. What does the breadboard demonstration in week 8 look like exactly?
 7. If our power supply looks like a laptop charger, how do we connect it to our system?
+8. What will be the heat capacity of the material used for the surface?
 
 ## 2/24/2025 - Meeting with machine shop/Parts for Power subsystem
-
 
 ### Parts for Power subsystem
 
@@ -33,6 +33,8 @@ Workflow: **Wall Outlet** -> **AC Power cord** -> **AC-DC converter (120V -> 24V
 - Buck Converter (24V -> 5V)
   - [Option 1](https://www.amazon.com/Zixtec-LM2596-Converter-Module-1-25V-30V/dp/B07VVXF7YX/ref=sr_1_1_sspa?adgrpid=1338106215344359&dib=eyJ2IjoiMSJ9.i-fEUZUMI6-HUhAvIrsL29-8sAiPbBM2NOrzWmpKicRhKOJc89Q7s3C-mw-o6bP7y2_23eSVDDGrgKpZWt6iobrW6keTpDD50gEzcF3R3xl7l38HGH0awaiHHapeLC2wDxFhbknTLNMsKTJc1v7_PSi4KXp2FUUme7whoLVaP_lAaJXZVsZGvoEvoWVIcxYH8_4DXOMEVbF4WBjGEyH1p3xQSGN-ILX0teGRgqRg8ts.Cmr4-DlNpWikNU6o2kz8kpZiJgpuy1QVTUvAXkESvr0&dib_tag=se&hvadid=83631853424737&hvbmt=be&hvdev=c&hvlocphy=95058&hvnetw=o&hvqmt=e&hvtargid=kwd-83631983725861%3Aloc-190&hydadcr=18918_13351314&keywords=lm2596%2Bdc%2Bdc%2Bbuck%2Bconverter&mcid=adfbc3c395583070af1c1c8c87dfef6f&msclkid=ab1bf28172511d781971953de778885b&qid=1740412209&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1)
 
+### Amount of Power Needed
+We need to consider the amount of power neededby our system in order to choose the right power supply and other components.
 
 ## Safety
 
