@@ -47,5 +47,5 @@ Workflow: **Wall Outlet** -> **AC Power cord** -> **AC-DC converter (120V -> 24V
   Source: ChatGPT
 
 
-- ![alt text](current-safety.png)
+- ![alt text](current_safety.png)
 Source: https://www.scienceabc.com/humans/how-many-volts-amps-kill-you-human.html
