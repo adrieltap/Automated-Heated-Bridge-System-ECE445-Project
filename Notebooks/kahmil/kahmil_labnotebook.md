@@ -1,6 +1,15 @@
 # Kahmil Worklog
 
-[[_TOC_]]
+<!-- TOC -->- [Kahmil Worklog](#kahmil-worklog)
+- [Kahmil Worklog](#kahmil-worklog)
+  - [Questions](#questions)
+  - [2/24/2025 - Meeting with machine shop/Parts for Power subsystem](#2242025---meeting-with-machine-shopparts-for-power-subsystem)
+    - [Parts for Power subsystem](#parts-for-power-subsystem)
+    - [Amount of Power Needed](#amount-of-power-needed)
+  - [Safety](#safety)
+
+<!-- AUTO-GENERATED-CONTENT:START (TOC) -->
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 ## Questions
 
@@ -35,6 +44,14 @@ Workflow: **Wall Outlet** -> **AC Power cord** -> **AC-DC converter (120V -> 24V
 
 ### Amount of Power Needed
 We need to consider the amount of power neededby our system in order to choose the right power supply and other components.
+We need to know the heat capacity of the material used for the surface, the mass of the material, and the temperature change needed.
+The following formulas will be useful:
+
+- Power (P) = Energy (E) / Time (t)
+- Energy (E) = Heat (Q) = Mass (m) * Specific Heat (c) * Temperature Change (ΔT)
+
+
+
 
 ## Safety
 
