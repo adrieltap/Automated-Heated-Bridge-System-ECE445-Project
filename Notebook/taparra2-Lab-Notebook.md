@@ -64,6 +64,53 @@
 * Plan is to meet up on Friday to discuss with machine shop with how to approach the metal plate.
 * 
 
+## 2/23/2025
+
+* Meeting with group to discuss what parts are needed 
+* Our goal by the end of this meeting is to decide the parts we need so we can start creating the schematic for our PCB
+* Goal on Thursday is to get our PCB Ready
+* We need to have these parts here:
+
+- User Interface
+	- Button
+	- Sensor LEDs
+- Display? - difficult to have when demo or realistic situation
+- Sensing Subsystem
+	- Temperature Sensor x2
+	- Humidity Sensor
+- Control Subsystem
+	- ESP32?
+	- Mosfet switch
+- Power Subsystem
+	- Voltage Regulator
+	- AC/DC Converter
+- Will meet with machine shop guy tomorrow (Monday) 2-3 pm we will be free
+	- Where to place temperature sensors
+		- I think we have this figured out
+	- Where to place moisture sensor
+		- Conversation to ask to machine shop guy
+	- What will our plate look like
+	- Maybe what it could look like
+## 2/24/2025
+
+* In charge of UI and Control SubSystem
+	* MCU
+		* ESP32-WROOM-32E-H4 has wifi capabilties just for future implementation
+	* Mosfet Switch
+		* IRLZ44NPBF
+			* Vds = 55V
+				* **VDS_{DS}DS​** stands for **Drain-to-Source Voltage**. It is the maximum voltage that can be applied between the **drain (D)** and **source (S)** terminals of the MOSFET **before breakdown occurs**.
+			* Id (at Vgs=-10V) = 47 A
+				* - **What it means**: The maximum current the MOSFET can safely carry from **drain to source**.
+				- **Why it matters**: If your circuit requires **20A**, you need a MOSFET with **ID_DD​ > 20A** to avoid overheating.
+	- Questions
+		- We need to figure out how much current / power is needed to heat up the plate before the PCB so we know which peripherals to pick in a power subsystem.
+		- How much heat will our MOSFET generate and will we need heat sinks for that?
+			- Heatsinks?
+		- 
+
+
+
 
 	
 	
