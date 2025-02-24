@@ -7,6 +7,9 @@
     - [Parts for Power subsystem](#parts-for-power-subsystem)
     - [Amount of Power Needed](#amount-of-power-needed)
   - [Safety](#safety)
+  - [2/22/2025 - Handwritten notes](#2222025---handwritten-notes)
+  - [2/18/2025 - Handwritten notes](#2182025---handwritten-notes)
+  - [2/17/2025 - Handwritten notes](#2172025---handwritten-notes)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 <!-- AUTO-GENERATED-CONTENT:END -->
@@ -36,8 +39,8 @@ Workflow: **Wall Outlet** -> **AC Power cord** -> **AC-DC converter (120V -> 24V
 - AC-DC converter (120V -> 24V)
   - [280W,24V](https://www.sager.com/product/gst280a24-c6p-mean-well/5359901?utm_source=googlemerchant&utm_medium=click&utm_campaign=sager-brand&utm_source=microsoft-ads&utm_medium=cpc&campaign-name=SmartShopping-NEW&utm_agid=1319416408946534&utm_term=&creative=&device=c&placement=&msclkid=8bbfccc8aff917a70a6fab7421873c48&utm_content=Ad%20group%20%231)
   - [150W,24V](https://www.sager.com/product/lrs-150-24-mean-well/5396767?utm_source=microsoft-ads&campaign-name=Search-Sager&Power&utm_agid=1313918793376081&utm_term=product%20&creative=&device=c&placement=&msclkid=6cfe252aa0721c05c83a42962f210577&utm_medium=cpc&utm_campaign=Search%20-%20Sager%20%26%20Power&utm_content=Electronics%20-%20Dynamic)
-  -[120W,24V](https://trcelectronics.com/products/mean-well-gst120a24-r7b?utm_term=&utm_campaign=Sales-Performance+Max-HIGH&utm_source=bing&utm_medium=ppc&hsa_acc=9805199880&hsa_cam=20129401809&hsa_grp=1271037090758778&hsa_ad=&hsa_src=o&hsa_tgt=pla-2331239529291898&hsa_kw=&hsa_mt=e&hsa_net=adwords&hsa_ver=3&msclkid=1578a6364dad1e7983c9c18add5d6922&utm_content=Asset%20Group%201)
-  -[144W,24V(top option)](https://www.amazon.com/gp/product/B0CFFBMQ6W/ref=sw_img_1?smid=A3OX6A2904ZV12&psc=1)
+  - [120W,24V](https://trcelectronics.com/products/mean-well-gst120a24-r7b?utm_term=&utm_campaign=Sales-Performance+Max-HIGH&utm_source=bing&utm_medium=ppc&hsa_acc=9805199880&hsa_cam=20129401809&hsa_grp=1271037090758778&hsa_ad=&hsa_src=o&hsa_tgt=pla-2331239529291898&hsa_kw=&hsa_mt=e&hsa_net=adwords&hsa_ver=3&msclkid=1578a6364dad1e7983c9c18add5d6922&utm_content=Asset%20Group%201)
+  - [144W,24V(top option)](https://www.amazon.com/gp/product/B0CFFBMQ6W/ref=sw_img_1?smid=A3OX6A2904ZV12&psc=1)
 
 - Buck Converter (24V -> 5V)
   - [Option 1](https://www.amazon.com/Zixtec-LM2596-Converter-Module-1-25V-30V/dp/B07VVXF7YX/ref=sr_1_1_sspa?adgrpid=1338106215344359&dib=eyJ2IjoiMSJ9.i-fEUZUMI6-HUhAvIrsL29-8sAiPbBM2NOrzWmpKicRhKOJc89Q7s3C-mw-o6bP7y2_23eSVDDGrgKpZWt6iobrW6keTpDD50gEzcF3R3xl7l38HGH0awaiHHapeLC2wDxFhbknTLNMsKTJc1v7_PSi4KXp2FUUme7whoLVaP_lAaJXZVsZGvoEvoWVIcxYH8_4DXOMEVbF4WBjGEyH1p3xQSGN-ILX0teGRgqRg8ts.Cmr4-DlNpWikNU6o2kz8kpZiJgpuy1QVTUvAXkESvr0&dib_tag=se&hvadid=83631853424737&hvbmt=be&hvdev=c&hvlocphy=95058&hvnetw=o&hvqmt=e&hvtargid=kwd-83631983725861%3Aloc-190&hydadcr=18918_13351314&keywords=lm2596%2Bdc%2Bdc%2Bbuck%2Bconverter&mcid=adfbc3c395583070af1c1c8c87dfef6f&msclkid=ab1bf28172511d781971953de778885b&qid=1740412209&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1)
@@ -49,8 +52,6 @@ The following formulas will be useful:
 
 - Power (P) = Energy (E) / Time (t)
 - Energy (E) = Heat (Q) = Mass (m) * Specific Heat (c) * Temperature Change (ΔT)
-
-
 
 
 ## Safety
@@ -68,3 +69,12 @@ The following formulas will be useful:
 
 - ![alt text](current_safety.png)
 Source: https://www.scienceabc.com/humans/how-many-volts-amps-kill-you-human.html
+
+## 2/22/2025 - Handwritten notes
+![2/22 Handwritten Notes](2-22-2025.jpg)
+
+## 2/18/2025 - Handwritten notes
+![2/18 Handwritten Notes](2-18-2025.jpg)
+
+## 2/17/2025 - Handwritten notes
+![2/17 Handwritten Notes](2-17-2025.jpg)
