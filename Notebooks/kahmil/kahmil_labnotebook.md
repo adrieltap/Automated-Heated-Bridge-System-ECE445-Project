@@ -1,15 +1,17 @@
 # Kahmil Worklog
 
-<!-- TOC -->- [Kahmil Worklog](#kahmil-worklog)
+<!-- TOC -->
 - [Kahmil Worklog](#kahmil-worklog)
   - [Questions](#questions)
+  - [2/17/2025 - Handwritten notes](#2172025---handwritten-notes)
+  - [2/18/2025 - Handwritten notes](#2182025---handwritten-notes)
+  - [2/22/2025 - Handwritten notes](#2222025---handwritten-notes)
   - [2/24/2025 - Meeting with machine shop/Parts for Power subsystem](#2242025---meeting-with-machine-shopparts-for-power-subsystem)
     - [Parts for Power subsystem](#parts-for-power-subsystem)
     - [Amount of Power Needed](#amount-of-power-needed)
+    - [Meeting Debrief](#meeting-debrief)
+    - [Next Steps](#next-steps)
   - [Safety](#safety)
-  - [2/22/2025 - Handwritten notes](#2222025---handwritten-notes)
-  - [2/18/2025 - Handwritten notes](#2182025---handwritten-notes)
-  - [2/17/2025 - Handwritten notes](#2172025---handwritten-notes)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 <!-- AUTO-GENERATED-CONTENT:END -->
@@ -24,6 +26,17 @@
 6. What does the breadboard demonstration in week 8 look like exactly?
 7. If our power supply looks like a laptop charger, how do we connect it to our system?
 8. What will be the heat capacity of the material used for the surface?
+
+
+## 2/17/2025 - Handwritten notes
+![2/17 Handwritten Notes](2-17-2025.jpg)
+
+## 2/18/2025 - Handwritten notes
+![2/18 Handwritten Notes](2-18-2025.jpg)
+
+## 2/22/2025 - Handwritten notes
+![2/22 Handwritten Notes](2-22-2025.jpg)
+
 
 ## 2/24/2025 - Meeting with machine shop/Parts for Power subsystem
 
@@ -53,6 +66,15 @@ The following formulas will be useful:
 - Power (P) = Energy (E) / Time (t)
 - Energy (E) = Heat (Q) = Mass (m) * Specific Heat (c) * Temperature Change (ΔT)
 
+### Meeting Debrief
+- We talked to Gregg at the machine shop about the overall design and we were able to get a better understanding of the system. We talked about the materials to use for the bridge surface and also introduced the idea of a heating block that would be right under the bridge surface. 
+- We decided on 12inch x 5inch x 1/8inch steel plate for the bridge surface.
+- We havent decided on the material for the heating block yet because we have to consider the diameter of the heater cartridges to know how thick it would be. However, the length and width of the heating block would be the same or a bit less than the bridge surface.
+- We also talked about the idea of a thermacouple to measure the temperature of the bridge surface and the heating block.
+
+### Next Steps
+- Choose a heater cartridge so we can determine the size of the heating block.
+- Look into thermocouple and how it will work with our system.
 
 ## Safety
 
@@ -70,11 +92,6 @@ The following formulas will be useful:
 - ![alt text](current_safety.png)
 Source: https://www.scienceabc.com/humans/how-many-volts-amps-kill-you-human.html
 
-## 2/22/2025 - Handwritten notes
-![2/22 Handwritten Notes](2-22-2025.jpg)
 
-## 2/18/2025 - Handwritten notes
-![2/18 Handwritten Notes](2-18-2025.jpg)
 
-## 2/17/2025 - Handwritten notes
-![2/17 Handwritten Notes](2-17-2025.jpg)
+
