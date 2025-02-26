@@ -128,7 +128,9 @@ Dimensions:
 	- 10 inch length, 5 inch width, 1/8 inch  
 	- Metal type - steel
 	- Thermal paste
-* Thermocouple - measures what it touches
+- We can use this volume and type of material to get the mass of the metal
+
+Thermocouple - measures what it touches
 
 
 ## Notes / Thoughts while drawing schematic for the ESP32
