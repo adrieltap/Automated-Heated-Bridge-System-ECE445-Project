@@ -11,6 +11,8 @@
     - [Amount of Power Needed](#amount-of-power-needed)
     - [Meeting Debrief](#meeting-debrief)
     - [Next Steps](#next-steps)
+  - [2/25/2025 - Trying to choose a water sensor](#2252025---trying-to-choose-a-water-sensor)
+  - [2/26/2025 - TA meeting/water sensor](#2262025---ta-meetingwater-sensor)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -68,13 +70,30 @@ The following formulas will be useful:
 
 ### Meeting Debrief
 - We talked to Gregg at the machine shop about the overall design and we were able to get a better understanding of the system. We talked about the materials to use for the bridge surface and also introduced the idea of a heating block that would be right under the bridge surface. 
-- We decided on 12inch x 5inch x 1/8inch steel plate for the bridge surface.
+- We decided on 10inch x 5inch x 1/8inch steel plate for the bridge surface.
 - We havent decided on the material for the heating block yet because we have to consider the diameter of the heater cartridges to know how thick it would be. However, the length and width of the heating block would be the same or a bit less than the bridge surface.
 - We also talked about the idea of a thermacouple to measure the temperature of the bridge surface and the heating block.
 
 ### Next Steps
 - Choose a heater cartridge so we can determine the size of the heating block.
 - Look into thermocouple and how it will work with our system.
+
+
+## 2/25/2025 - Trying to choose a water sensor
+- Had a meeting today to start working on PCB design, however most of the time was spent trying to choose a water sensor because we thought it would be helpful to know the specs of the water sensor to have a more accurate schematic.
+- The goal of the sensor is to be able to detect snowfall (in the real world) and sprayed water (in the demo)
+- We found "soil moisture sensors" but I don't think they will work because we want to detect liquid water, not just moisture in the soil.
+- We found optical sensors which use reflection to detect the presence of water but the fact that our bridge is made of steel might affect the accuracy of the sensor.
+- We also found water level sensors but we won't have a puddle of water on the bridge so I don't think this will work.
+- We also looked at humidity sensors but we don't want to just detect the amount of moisture in the air, we want to detect liquid water.
+- The ideal sensor would be able to detect if it touches water without being submerged in water or being placed on the surface of the bridge (because in the real world, cars will step on it). We would want something that is mounted above the bridge surface and can detect being touched by sprayed water (or snow in the real world).
+
+## 2/26/2025 - TA meeting/water sensor
+- I found a rain sensor that would seem perfect however it is very big and expensive. I think it might be more suitable for industrial applications. However, It's able to detect when water is sprayed on it. [RG-11 Rain sensor](https://rainsensors.com/products/rg-11/). [Youtube demo](https://www.youtube.com/watch?v=BxVbIZfC324)
+- I also found this rain sensor on digikey however I don't know how if it can detect snow in the real world. [Rain sensor - digikey](https://www.digikey.com/en/products/detail/soldered-electronics/333044/21720441)
+- I also found this sensor that seems to work for both rain and snow but it's expensive (41 USD) and looks industrial. Also it arrives reaalt late. [Rain/Snow sensor - Amazon](https://www.amazon.com/Raindrops-Detection-Automatic-Heating-Outdoor/dp/B0CHMH3JKN?utm_source=chatgpt.com)
+- I also found this [rain/snow sensor - Ebay](https://www.ebay.com/itm/115096071033?utm_source=chatgpt.com)
+- I'm having trouble finding a sensor that can detect both snowfall and sprayed water (for the demo). So maybe we will just have two sensors, one for snowfall and one for sprayed water.
 
 ## Safety
 
