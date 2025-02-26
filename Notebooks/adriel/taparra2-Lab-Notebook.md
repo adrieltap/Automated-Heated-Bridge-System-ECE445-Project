@@ -146,8 +146,16 @@ Thermocouple - measures what it touches
 	* Ordered this for prototype and testing: https://www.amazon.com/ESP-WROOM-32-Development-Microcontroller-Integrated-Compatible/dp/B08D5ZD528/ref=sr_1_3?crid=2R6NFSPNZ4UIJ&dib=eyJ2IjoiMSJ9.qMJJKscaTbDZH8KOrPXaSnOgh0Rwn0wGCCSUTqJssNJWvhgioFRHfCsyDoVodLIm1otAgJ2cz5g56oUcIK6S2BM0lxS7vSMj_1RGHVS94wZapor5YIFnpghILK189X77DwEid3tgVJCXqLxZK103j0eb6plEZCZ7ilOwI90qEdXmE3JMJT68Yu-DIUEuAJjWcGY61fKjhaYkZJ7T7GEw0D-sw4_fDt4bSxIifrXKnSk.ETzFxQSIHW3uG14JOZa1bLh6CFPtJtWteeAkEKG8Vok&dib_tag=se&keywords=ESP32-WROOM-32&qid=1740541125&sprefix=esp32-wroom-32%2Caps%2C120&sr=8-3&th=1
 * 
 * Pins needed for 2x Temperature Sensor:
-	* PINXXXX
-	* PINXXX
+	* Part Number DS18B20
+		* Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/DS18B20.pdf
+		* Water Proof
+		* 1 Pin Interface
+		* Supply Voltage
+			* 3.0 Min
+			* 5.5 Max V
+	* PIN for Temp1 -> IO17
+	* PIN for Temp2 -> IO19 
 * Pins needed for 1x Moisture Sensor
 	* PINXXX
 * Voltage Regulator
+*
