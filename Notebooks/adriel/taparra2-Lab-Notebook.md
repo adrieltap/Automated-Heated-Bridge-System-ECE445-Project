@@ -134,7 +134,7 @@ Thermocouple - measures what it touches
 
 
 
-### 2/25/25 to 2/26/25
+# 2/25/25 to 2/26/25
 ## Notes / Thoughts while drawing schematic for the ESP32
 
 * ESP32-WROOM-32
@@ -178,3 +178,9 @@ Thermocouple - measures what it touches
 		* Indicator that MoistureSensor goes below/above threshold
 * Button
 	* Make sure the button is open circuit if not pressed
+# 2/26/2025
+
+* TA was sick, but meet over zoom to discuss questions
+	* We can use the dev board during breadboard demo
+	* PCB review is optional
+	* Order parts through TA to get reimbursed
