@@ -133,6 +133,8 @@ Dimensions:
 Thermocouple - measures what it touches
 
 
+
+### 2/25/25 to 2/26/25
 ## Notes / Thoughts while drawing schematic for the ESP32
 
 * ESP32-WROOM-32
@@ -158,4 +160,21 @@ Thermocouple - measures what it touches
 * Pins needed for 1x Moisture Sensor
 	* PINXXX
 * Voltage Regulator
-*
+* Still need to figure out which pins are necessary for flashing / programming
+	* Good reddit page flashing / programming the MCU
+		* https://www.reddit.com/r/esp32/comments/ovkp96/how_to_flash_raw_esp32_board/
+	* Good reddit page for example schematic
+		* https://www.reddit.com/r/esp32/comments/13t4cf2/i_am_making_board_with_esp32_wroom32d_do_i_have/
+	* Source for schematic
+		* https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/en/latest/hw-reference/index.html
+* RC Circuit for Time Delay
+	* According to page 19 of ESP32 data sheet, this is needed to ensure the power supply to the ESP-32 during power-up
+* Things to add for UI
+	* Emergency Reset switch or button maybe?
+	* LEDs that would give user info:
+		* PCB is powered on
+		* Indicator that TemperatureAir goes below/above threshold
+		* Indicator that TemperatureSurface goes below/above threshold
+		* Indicator that MoistureSensor goes below/above threshold
+* Button
+	* Make sure the button is open circuit if not pressed
