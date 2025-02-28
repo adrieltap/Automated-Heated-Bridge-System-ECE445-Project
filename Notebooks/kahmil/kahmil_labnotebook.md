@@ -16,6 +16,8 @@
     - [TA Meeting Debrief](#ta-meeting-debrief)
   - [2/27/2025 - Determining how much power we need](#2272025---determining-how-much-power-we-need)
     - [Fleshing out the power subsystem](#fleshing-out-the-power-subsystem)
+  - [2/28/2025 -](#2282025--)
+    - [Voltage Regulator vs Buck Converter](#voltage-regulator-vs-buck-converter)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -119,6 +121,11 @@ The following formulas will be useful:
 - The MOSFET will be used to control the amount of current that will flow to the heating elements.
 - We will be using heater cartridges for the heating elements. We will probably use 3 [40W, 24V cartridges](https://www.amazon.com/dp/B0BQQ4KGCB?smid=ALO3XPILH8M0H&ref_=chk_typ_imgToDp&th=1) to meet the amount of power needed to raise the temperature of the bridge surface.
 - We might also need a heatsink and a gate driver circuit (LTC1157) to control the MOSFET.
+
+## 2/28/2025 - 
+### Voltage Regulator vs Buck Converter
+"A linear regulator (e.g., an AMS1117-3.3) simply "burns off" the extra voltage as heat. For a drop from 24V to 3.3V, that’s a loss of 20.7V, which can result in significant heat dissipation, especially at higher currents.
+A buck converter uses switching elements (transistors, diodes, inductors, and capacitors) to efficiently convert the voltage with efficiencies often above 85–90%, meaning much less energy is wasted as heat." Source: ChatGPT
 
 ## Safety
 
