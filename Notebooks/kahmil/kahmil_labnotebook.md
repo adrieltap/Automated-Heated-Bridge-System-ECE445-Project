@@ -13,6 +13,7 @@
     - [Next Steps](#next-steps)
   - [2/25/2025 - Trying to choose a water sensor](#2252025---trying-to-choose-a-water-sensor)
   - [2/26/2025 - TA meeting/water sensor](#2262025---ta-meetingwater-sensor)
+    - [TA Meeting Debrief](#ta-meeting-debrief)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -22,12 +23,14 @@
 
 1. How many watts would we need to increase the temperature of the metal plate by 10 degrees?
 2. Any guidance on the power subsystem? How do we connect to the wall?
-3. Do we need a display for temperature and moisture?
+3. **Do we need a display for temperature and moisture?**
 4. Talk to machine shop about how the demo would look like and using a cooler with dry ice for demo
 5. Do we need heat sinks?
-6. What does the breadboard demonstration in week 8 look like exactly?
+6. **What does the breadboard demonstration in week 8 look like exactly?**
 7. If our power supply looks like a laptop charger, how do we connect it to our system?
 8. What will be the heat capacity of the material used for the surface?
+9. **Can we order parts ourselves and get reimbursed?**
+10. **Where are the lockers?**
 
 
 ## 2/17/2025 - Handwritten notes
@@ -91,9 +94,15 @@ The following formulas will be useful:
 ## 2/26/2025 - TA meeting/water sensor
 - I found a rain sensor that would seem perfect however it is very big and expensive. I think it might be more suitable for industrial applications. However, It's able to detect when water is sprayed on it. [RG-11 Rain sensor](https://rainsensors.com/products/rg-11/). [Youtube demo](https://www.youtube.com/watch?v=BxVbIZfC324)
 - I also found this rain sensor on digikey however I don't know how if it can detect snow in the real world. [Rain sensor - digikey](https://www.digikey.com/en/products/detail/soldered-electronics/333044/21720441)
-- I also found this sensor that seems to work for both rain and snow but it's expensive (41 USD) and looks industrial. Also it arrives reaalt late. [Rain/Snow sensor - Amazon](https://www.amazon.com/Raindrops-Detection-Automatic-Heating-Outdoor/dp/B0CHMH3JKN?utm_source=chatgpt.com)
+- I also found this sensor that seems to work for both rain and snow but it's expensive (41 USD) and looks industrial. Also it arrives really late. [Rain/Snow sensor - Amazon](https://www.amazon.com/Raindrops-Detection-Automatic-Heating-Outdoor/dp/B0CHMH3JKN?utm_source=chatgpt.com)
 - I also found this [rain/snow sensor - Ebay](https://www.ebay.com/itm/115096071033?utm_source=chatgpt.com)
 - I'm having trouble finding a sensor that can detect both snowfall and sprayed water (for the demo). So maybe we will just have two sensors, one for snowfall and one for sprayed water.
+
+### TA Meeting Debrief
+- For the breadboard demo, we should try to get the sensors working with the dev board and also get some of the heating elements working.
+- Our locker is G10
+- Verified that we can indeed use a dev board for the breadboard demo
+- Can submit the parts request from myECE
 
 ## Safety
 
