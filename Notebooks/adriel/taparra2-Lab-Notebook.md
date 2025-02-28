@@ -184,3 +184,11 @@ Thermocouple - measures what it touches
 	* We can use the dev board during breadboard demo
 	* PCB review is optional
 	* Order parts through TA to get reimbursed
+
+# 2/27/2025
+
+* Worked on PCB schematic today, need to do this tomorrow:
+	* ADD LED to indicate there is power to PCB
+		* Add LED for ON for the sensors?
+		* Other LED indicators?
+	* ADD test points
