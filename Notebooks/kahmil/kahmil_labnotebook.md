@@ -14,6 +14,8 @@
   - [2/25/2025 - Trying to choose a water sensor](#2252025---trying-to-choose-a-water-sensor)
   - [2/26/2025 - TA meeting/water sensor](#2262025---ta-meetingwater-sensor)
     - [TA Meeting Debrief](#ta-meeting-debrief)
+  - [2/27/2025 - Determining how much power we need](#2272025---determining-how-much-power-we-need)
+    - [Fleshing out the power subsystem](#fleshing-out-the-power-subsystem)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -103,6 +105,20 @@ The following formulas will be useful:
 - Our locker is G10
 - Verified that we can indeed use a dev board for the breadboard demo
 - Can submit the parts request from myECE
+
+
+## 2/27/2025 - Determining how much power we need
+- From my calculations (shown in the image below), we would need around 260W of power to raise the temperature of the bridge surface by 10 degrees farenheight in 60 seconds and ~90W to raise it by 10 degrees in 3 minutes.
+- This should be possible to do with the 144W power supply we are considering. [24V, 6A, 144W power supply adapter](https://www.amazon.com/dp/B0CFFBMQ6W?psc=1&smid=A3OX6A2904ZV12&ref_=chk_typ_imgToDp)
+  ![Power Calculation](power_calc.jpg)
+
+### Fleshing out the power subsystem
+- The current plan is to use the AC-DC converter (linked above) to step down the voltage from the wall outlet to 24V. Then we will use a buck converter (LM2596) to step down the voltage to 3.3V.
+- We will use the 3.3V rail to power the ESP32 and the 24V rail to power the heating elements.
+- The 24V rail will first go to the MOSFET (IRLZ44NPBF) which will be controlled by the ESP32.
+- The MOSFET will be used to control the amount of current that will flow to the heating elements.
+- We will be using heater cartridges for the heating elements. We will probably use 3 [40W, 24V cartridges](https://www.amazon.com/dp/B0BQQ4KGCB?smid=ALO3XPILH8M0H&ref_=chk_typ_imgToDp&th=1) to meet the amount of power needed to raise the temperature of the bridge surface.
+- We might also need a heatsink and a gate driver circuit (LTC1157) to control the MOSFET.
 
 ## Safety
 
