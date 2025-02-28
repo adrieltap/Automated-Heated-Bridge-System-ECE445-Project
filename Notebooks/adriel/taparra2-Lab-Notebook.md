@@ -1,4 +1,4 @@
-## 2/16/2025
+# 2/16/2025
 
 * Met up as a group on a discord call from 3-5 PM. Talked about design choices, design review and how we are going to split work when presenting.
 * Design modifications if proposal does not get accepted.
@@ -39,7 +39,7 @@
 	* Temperature Sensor
 	* Moisture Sensor
 	* MOSFET-Based Switching
-## 2/17/2025 - Design Review
+# 2/17/2025 - Design Review
 
 * Met up again before our demo to prepare, talked about placement of moisture sensors and temperature sensors as well. Moisture sensor can be difficult since we would need to detect water on the whole entire plate.
 	* Moisture sensor placements
@@ -54,7 +54,7 @@
 		* Fail safe option if there is too much ice and our system cannot catch up.
 		* Look into the temperatures allowed for our peripherals and parts.
 		* Placements of PCB, how much we will heat and how to scale it
-## 2/19/2025 
+# 2/19/2025 
 
 *  Peer Reviewed GymHive Tracker group
 *  Different parts to consider:
@@ -64,7 +64,7 @@
 * Plan is to meet up on Friday to discuss with machine shop with how to approach the metal plate.
 * 
 
-## 2/23/2025
+# 2/23/2025
 
 * Meeting with group to discuss what parts are needed 
 * Our goal by the end of this meeting is to decide the parts we need so we can start creating the schematic for our PCB
@@ -91,11 +91,11 @@
 		- Conversation to ask to machine shop guy
 	- What will our plate look like
 	- Maybe what it could look like
-## 2/24/2025
+# 2/24/2025
 
 * In charge of UI and Control SubSystem
 	* MCU
-		* ESP32-WROOM-32E-H4 has wifi capabilties just for future implementation
+		* ESP32-WROOM-32 has wireless capabilties just for future implementation
 	* Mosfet Switch
 		* IRLZ44NPBF
 			* Vds = 55V
@@ -105,12 +105,82 @@
 				- **Why it matters**: If your circuit requires **20A**, you need a MOSFET with **ID_DD​ > 20A** to avoid overheating.
 	- Questions
 		- We need to figure out how much current / power is needed to heat up the plate before the PCB so we know which peripherals to pick in a power subsystem.
+			- Size of the plate
 		- How much heat will our MOSFET generate and will we need heat sinks for that?
 			- Heatsinks?
-		- 
+		- Moisture sensor placement
+		-  Stainless steel or Aluminimum
+		- What heat cartridge to use
+		- How realistic should this be?
+	- Brainstorm
+		- Railing on the bridge to place temperature sensor
+		- Temperature Sensor at the bottom above the heat cartridges
+## Notes from Talk with Gregg in Machine Shop
+
+Types of metals available in machine shop:
+* 60/61 aluminum
+* Stainless steel
+
+Dimensions:
+* Range of thickness for stainless steel - 1 and a half to 3 mm. 1/16 of an inch and or 1/8th
+* 2 to 1 width to length. 12 inch long 6 inch width
+	- Heat cartridges and how much heat
+	- 10 inch length, 5 inch width, 1/8 inch  
+	- Metal type - steel
+	- Thermal paste
+- We can use this volume and type of material to get the mass of the metal
+
+Thermocouple - measures what it touches
 
 
 
+# 2/25/25 to 2/26/25
+## Notes / Thoughts while drawing schematic for the ESP32
 
-	
-	
+* ESP32-WROOM-32
+	* Datasheet: https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf
+	* Programming: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html
+	* Vdd range: Min: 3.0V, Typical: 3.3V, Max: 3.6V
+	* Operating Temperature -40 C to 85 C
+* Power will be 3.3 V
+* Which pins are necessary to program the ESP32?
+* Maybe for breadboard demo we can get the breakout board to test our software to show our UI?
+	* Ordered this for prototype and testing: https://www.amazon.com/ESP-WROOM-32-Development-Microcontroller-Integrated-Compatible/dp/B08D5ZD528/ref=sr_1_3?crid=2R6NFSPNZ4UIJ&dib=eyJ2IjoiMSJ9.qMJJKscaTbDZH8KOrPXaSnOgh0Rwn0wGCCSUTqJssNJWvhgioFRHfCsyDoVodLIm1otAgJ2cz5g56oUcIK6S2BM0lxS7vSMj_1RGHVS94wZapor5YIFnpghILK189X77DwEid3tgVJCXqLxZK103j0eb6plEZCZ7ilOwI90qEdXmE3JMJT68Yu-DIUEuAJjWcGY61fKjhaYkZJ7T7GEw0D-sw4_fDt4bSxIifrXKnSk.ETzFxQSIHW3uG14JOZa1bLh6CFPtJtWteeAkEKG8Vok&dib_tag=se&keywords=ESP32-WROOM-32&qid=1740541125&sprefix=esp32-wroom-32%2Caps%2C120&sr=8-3&th=1
+* 
+* Pins needed for 2x Temperature Sensor:
+	* Part Number DS18B20
+		* Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/DS18B20.pdf
+		* Water Proof
+		* 1 Pin Interface
+		* Supply Voltage
+			* 3.0 Min
+			* 5.5 Max V
+	* PIN for Temp1 -> IO17
+	* PIN for Temp2 -> IO19 
+* Pins needed for 1x Moisture Sensor
+	* PINXXX
+* Voltage Regulator
+* Still need to figure out which pins are necessary for flashing / programming
+	* Good reddit page flashing / programming the MCU
+		* https://www.reddit.com/r/esp32/comments/ovkp96/how_to_flash_raw_esp32_board/
+	* Good reddit page for example schematic
+		* https://www.reddit.com/r/esp32/comments/13t4cf2/i_am_making_board_with_esp32_wroom32d_do_i_have/
+	* Source for schematic
+		* https://espressif-docs.readthedocs-hosted.com/projects/esp-idf/en/latest/hw-reference/index.html
+* RC Circuit for Time Delay
+	* According to page 19 of ESP32 data sheet, this is needed to ensure the power supply to the ESP-32 during power-up
+* Things to add for UI
+	* Emergency Reset switch or button maybe?
+	* LEDs that would give user info:
+		* PCB is powered on
+		* Indicator that TemperatureAir goes below/above threshold
+		* Indicator that TemperatureSurface goes below/above threshold
+		* Indicator that MoistureSensor goes below/above threshold
+* Button
+	* Make sure the button is open circuit if not pressed
+# 2/26/2025
+
+* TA was sick, but meet over zoom to discuss questions
+	* We can use the dev board during breadboard demo
+	* PCB review is optional
+	* Order parts through TA to get reimbursed
