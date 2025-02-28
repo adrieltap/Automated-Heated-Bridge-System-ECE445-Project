@@ -18,6 +18,8 @@
     - [Fleshing out the power subsystem](#fleshing-out-the-power-subsystem)
   - [2/28/2025 -](#2282025--)
     - [Voltage Regulator vs Buck Converter](#voltage-regulator-vs-buck-converter)
+    - [KiCad Shortcuts](#kicad-shortcuts)
+    - [PCB Question](#pcb-question)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -111,7 +113,7 @@ The following formulas will be useful:
 
 ## 2/27/2025 - Determining how much power we need
 - From my calculations (shown in the image below), we would need around 260W of power to raise the temperature of the bridge surface by 10 degrees farenheight in 60 seconds and ~90W to raise it by 10 degrees in 3 minutes.
-- This should be possible to do with the 144W power supply we are considering. [24V, 6A, 144W power supply adapter](https://www.amazon.com/dp/B0CFFBMQ6W?psc=1&smid=A3OX6A2904ZV12&ref_=chk_typ_imgToDp)
+- This should be possible to do with the 144W power supply we are considering. [24V, 6A, 144W power supply adapter(5.5mm x 2.1mm)](https://www.amazon.com/dp/B0CFFBMQ6W?psc=1&smid=A3OX6A2904ZV12&ref_=chk_typ_imgToDp)
   ![Power Calculation](power_calc.jpg)
 
 ### Fleshing out the power subsystem
@@ -127,6 +129,16 @@ The following formulas will be useful:
 "A linear regulator (e.g., an AMS1117-3.3) simply "burns off" the extra voltage as heat. For a drop from 24V to 3.3V, that’s a loss of 20.7V, which can result in significant heat dissipation, especially at higher currents.
 A buck converter uses switching elements (transistors, diodes, inductors, and capacitors) to efficiently convert the voltage with efficiencies often above 85–90%, meaning much less energy is wasted as heat." Source: ChatGPT
 
+### KiCad Shortcuts
+- Hit a to open the component add dialog / footprint library.
+- Move components around by hovering over them with the mouse and pressing g (grab). Components can be copied with c.
+- Use w to start routing a new wire under the mouse, left-click to finish routing, and Esc to cancel.
+- Use r to rotate a component.
+- Use l to place labels on pins or wires. Any two points with the same label will behave as if connected by a wire.
+- "Set the value of the resistor to 10k and the capacitor to 1uF by hovering over each and pressing v."
+
+### PCB Question
+- Choosing the right DC Barrel Jack
 ## Safety
 
 - Wall outlet voltage (120V AC or 230V AC) is deadly.
