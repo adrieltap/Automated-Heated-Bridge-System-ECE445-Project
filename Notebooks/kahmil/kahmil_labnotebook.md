@@ -19,7 +19,11 @@
   - [2/28/2025 -](#2282025--)
     - [Voltage Regulator vs Buck Converter](#voltage-regulator-vs-buck-converter)
     - [KiCad Shortcuts](#kicad-shortcuts)
-    - [PCB Question](#pcb-question)
+      - [Schematic Editor](#schematic-editor)
+      - [PCB Editor](#pcb-editor)
+    - [PCB review session](#pcb-review-session)
+  - [3/1/2025 - Power Subsystem Schematic](#312025---power-subsystem-schematic)
+  - [3/2/2025 - MOSFET + Buck Converter Schematic](#322025---mosfet--buck-converter-schematic)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -37,6 +41,7 @@
 8. What will be the heat capacity of the material used for the surface?
 9. **Can we order parts ourselves and get reimbursed?**
 10. **Where are the lockers?**
+11. The approprate place to add capacitors? (e.g buck converter input, output, etc.)
 
 
 ## 2/17/2025 - Handwritten notes
@@ -130,15 +135,47 @@ The following formulas will be useful:
 A buck converter uses switching elements (transistors, diodes, inductors, and capacitors) to efficiently convert the voltage with efficiencies often above 85–90%, meaning much less energy is wasted as heat." Source: ChatGPT
 
 ### KiCad Shortcuts
+#### Schematic Editor
 - Hit a to open the component add dialog / footprint library.
 - Move components around by hovering over them with the mouse and pressing g (grab). Components can be copied with c.
 - Use w to start routing a new wire under the mouse, left-click to finish routing, and Esc to cancel.
 - Use r to rotate a component.
 - Use l to place labels on pins or wires. Any two points with the same label will behave as if connected by a wire.
 - "Set the value of the resistor to 10k and the capacitor to 1uF by hovering over each and pressing v."
+#### PCB Editor
+- x - Add track
+- v - Toggle front/back side of board
+- u - Select all segments of a track
+- Del - Delete selected track segments
+- b - redraw zones (after moving footprints or tracks)
 
-### PCB Question
-- Choosing the right DC Barrel Jack
+
+### PCB review session
+- Avoid 90 degree bends in the wiring traces
+- Make sure you can hand solder the components (0805 recommended)
+- Look into using 4 layer PCBs?
+- Consider using a 28V power supply instead of 24V just for complexity (and add a linear regulator)
+- KiCad has a built in calculator to see how wide the traces should be depending on the current.
+- Read the PDF on the PCB design guidelines
+
+## 3/1/2025 - Power Subsystem Schematic
+- ""105" is a standard capacitor code. In this case, the "105" indicates that the capacitor's value is 1 µF. Here's how it works: the first two digits (10) are the significant figures and the third digit (5) is the multiplier (i.e. add five zeros) in picofarads. So, 10 × 10⁵ pF equals 1,000,000 pF, which is equivalent to 1 µF." Source: ChatGPT
+- ""0603" and "0805" refer to standard SMD (surface-mount device) package sizes. They denote the length and width of the component in inches:
+
+0603: Approximately 0.06" x 0.03" (roughly 1.6 mm x 0.8 mm)
+0805: Approximately 0.08" x 0.05" (roughly 2.0 mm x 1.25 mm)" Source: ChatGPT
+- Diodes: The side with the hook or straight line is the cathode.
+- For the Barell connector, we only need the top and bottom pin of the symbol.
+- The IRLZ44NPBF is an N-channel MOSFET.
+
+## 3/2/2025 - MOSFET + Buck Converter Schematic
+- Coming up with these schematics was a real pain. I'm still not sure if I did it correctly. I had thought thet you can just connect the mosfet and converter directly but it seems you need resistors, capacitors, and diodes. I'm still not sure what each of those components do but I will look into it.
+- Here's what the power subsystem looks like as of now:
+![Power Subsystem Schematic](power_schematic1.png)
+- The following resources were helpful:
+  - [Mosfet as a switch](https://www.youtube.com/watch?v=UJkHL-6mn8s&t=769s)
+  - [Cadlab Buck Converter schematic](https://cadlab.io/project/27732/master/files/BUCK-CONVERTER.kicad_pro)
+
 ## Safety
 
 - Wall outlet voltage (120V AC or 230V AC) is deadly.
