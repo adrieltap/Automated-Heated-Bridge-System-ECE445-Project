@@ -765,6 +765,347 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "54-00166:54-00166"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at -7.62 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Value" "54-00166"
+				(at -7.62 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Footprint" "54-00166:TENSILITY_54-00166"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "PARTREV" "A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "STANDARD" "Manufacturer Recommendations"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "SNAPEDA_PN" "54-00166"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "MAXIMUM_PACKAGE_HEIGHT" "11.2mm"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "MANUFACTURER" "TENSILITY"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(symbol "54-00166_0_0"
+				(polyline
+					(pts
+						(xy -8.255 3.81) (xy -1.27 3.81)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -8.255 1.27)
+					(mid -9.5194 2.54)
+					(end -8.255 3.81)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -6.35 -1.27) (xy -6.985 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.715 -2.54) (xy -6.35 -1.27)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.81 0) (xy -3.81 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.81 -2.54) (xy -4.318 -1.27) (xy -3.302 -1.27) (xy -3.81 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 4.445) (xy -1.27 3.81)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 3.81) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy -8.255 1.27)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy -1.27 0.635)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0.635) (xy 0 0.635)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 4.445) (xy -1.27 4.445)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0.635) (xy 0 4.445)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy -3.81 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy -5.715 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 5.08)
+					(name "~"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "A"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 5.08)
+					(name "~"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "C"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 5.08)
+					(name "~"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "B"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector_Generic:Conn_01x02"
 			(pin_names
 				(offset 1.016)
@@ -3632,10 +3973,6 @@
 		(uuid "1a6554d6-2f3c-4f0d-9232-91b6394c7e08")
 	)
 	(no_connect
-		(at 210.82 72.39)
-		(uuid "21996682-5370-4a69-b14e-1d9c2fed642b")
-	)
-	(no_connect
 		(at 342.9 124.46)
 		(uuid "2d270ac4-c6b1-4f6c-932c-177814c0cda3")
 	)
@@ -3682,6 +4019,10 @@
 	(no_connect
 		(at 342.9 160.02)
 		(uuid "bc5a718b-2e8a-495a-a43f-6169ccbdd0ac")
+	)
+	(no_connect
+		(at 204.47 72.39)
+		(uuid "c8e98f68-63a5-4594-ae52-d2ea483f37d1")
 	)
 	(no_connect
 		(at 373.38 132.08)
@@ -3821,6 +4162,16 @@
 	)
 	(wire
 		(pts
+			(xy 207.01 69.85) (xy 204.47 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "110f4338-d9f2-4441-99cd-9d86a028e9b2")
+	)
+	(wire
+		(pts
 			(xy 317.5 111.76) (xy 314.96 111.76)
 		)
 		(stroke
@@ -3938,6 +4289,16 @@
 			(type default)
 		)
 		(uuid "25afb884-820d-4e1a-ab76-3deb0b3f5a0c")
+	)
+	(wire
+		(pts
+			(xy 204.47 74.93) (xy 210.82 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27232b1b-31d7-441b-af9c-c744d900a939")
 	)
 	(wire
 		(pts
@@ -4178,6 +4539,16 @@
 			(type default)
 		)
 		(uuid "4e7d081e-dfec-47e2-876a-a2020efa578e")
+	)
+	(wire
+		(pts
+			(xy 207.01 67.31) (xy 228.6 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e98a1c8-c68f-4833-aecd-8e674fa7284d")
 	)
 	(wire
 		(pts
@@ -4971,6 +5342,16 @@
 	)
 	(wire
 		(pts
+			(xy 210.82 77.47) (xy 210.82 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c26d0f31-b0ce-4922-94e7-f74d5d6a5b6f")
+	)
+	(wire
+		(pts
 			(xy 434.975 107.315) (xy 434.975 142.24)
 		)
 		(stroke
@@ -5191,16 +5572,6 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 67.31) (xy 228.6 67.31)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "db74386f-2b84-4136-9db8-1626baefd8a2")
-	)
-	(wire
-		(pts
 			(xy 302.26 53.34) (xy 302.26 59.69)
 		)
 		(stroke
@@ -5308,6 +5679,16 @@
 			(type default)
 		)
 		(uuid "ef6a4b65-d480-4552-8828-f3db20895fad")
+	)
+	(wire
+		(pts
+			(xy 207.01 67.31) (xy 207.01 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f066d1d6-d5ea-48f0-8070-0ec66f3b3d16")
 	)
 	(wire
 		(pts
@@ -7533,7 +7914,7 @@
 	)
 	(symbol
 		(lib_id "2025-02-28_21-13-51:54-00166")
-		(at 210.82 67.31 0)
+		(at 133.35 54.61 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7542,7 +7923,7 @@
 		(fields_autoplaced yes)
 		(uuid "6be26c05-537c-455d-90af-4be15b0688a5")
 		(property "Reference" "J12"
-			(at 198.12 59.69 0)
+			(at 120.65 46.99 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -7550,15 +7931,15 @@
 			)
 		)
 		(property "Value" "54-00166"
-			(at 198.12 62.23 0)
+			(at 120.65 49.53 0)
 			(effects
 				(font
 					(size 1.524 1.524)
 				)
 			)
 		)
-		(property "Footprint" "footprints_barrel:CONN3_54-00166_TEN"
-			(at 210.82 67.31 0)
+		(property "Footprint" "54_00166_2:TENSILITY_54-00166"
+			(at 133.35 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7568,7 +7949,7 @@
 			)
 		)
 		(property "Datasheet" "54-00166"
-			(at 210.82 67.31 0)
+			(at 133.35 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7578,7 +7959,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 210.82 67.31 0)
+			(at 133.35 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7596,7 +7977,7 @@
 			(uuid "568fe197-8b83-4336-a24e-1db1093d9c7e")
 		)
 		(instances
-			(project ""
+			(project "Group52HeatedBridge"
 				(path "/bb48adda-4915-4436-95dc-e9dcb2cba51b"
 					(reference "J12")
 					(unit 1)
@@ -8041,7 +8422,7 @@
 				)
 			)
 		)
-		(property "Footprint" "footprints:PG-TO220-3_INF"
+		(property "Footprint" "footprints_mosfet:PG-TO220-3_INF"
 			(at 233.68 38.1 0)
 			(effects
 				(font
@@ -9196,6 +9577,128 @@
 			(project ""
 				(path "/bb48adda-4915-4436-95dc-e9dcb2cba51b"
 					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "54-00166:54-00166")
+		(at 199.39 72.39 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "cc05679b-5e03-4b2b-a642-9d45db8f59c6")
+		(property "Reference" "J11"
+			(at 194.6303 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "54-00166"
+			(at 194.6303 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "54_00166_2:TENSILITY_54-00166"
+			(at 199.39 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 199.39 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 199.39 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PARTREV" "A"
+			(at 199.39 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" "Manufacturer Recommendations"
+			(at 199.39 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "SNAPEDA_PN" "54-00166"
+			(at 199.39 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" "11.2mm"
+			(at 199.39 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" "TENSILITY"
+			(at 199.39 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(pin "C"
+			(uuid "30b4d4a5-6d0d-4c50-863b-35b747e6b102")
+		)
+		(pin "B"
+			(uuid "61083209-1ad2-46a7-a3d8-eb892d7ab2d6")
+		)
+		(pin "A"
+			(uuid "20627bee-bdd1-4f48-9098-12d1b4d1a9f0")
+		)
+		(instances
+			(project ""
+				(path "/bb48adda-4915-4436-95dc-e9dcb2cba51b"
+					(reference "J11")
 					(unit 1)
 				)
 			)
