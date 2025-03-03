@@ -3533,6 +3533,12 @@
 		(uuid "a58e105e-c258-4a80-9601-67ef3fc598f0")
 	)
 	(junction
+		(at 231.14 63.5)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b1c37a0c-7b0a-45a0-ac31-49d55e54d686")
+	)
+	(junction
 		(at 222.25 38.1)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3571,6 +3577,10 @@
 	(no_connect
 		(at 373.38 124.46)
 		(uuid "1a6554d6-2f3c-4f0d-9232-91b6394c7e08")
+	)
+	(no_connect
+		(at 210.82 72.39)
+		(uuid "21996682-5370-4a69-b14e-1d9c2fed642b")
 	)
 	(no_connect
 		(at 342.9 124.46)
@@ -3627,10 +3637,6 @@
 	(no_connect
 		(at 342.9 152.4)
 		(uuid "d316beff-317e-4254-9f44-8c882f36fbb8")
-	)
-	(no_connect
-		(at 373.38 165.1)
-		(uuid "eef847be-f21c-4187-b6a6-753be1d24806")
 	)
 	(no_connect
 		(at 342.9 157.48)
@@ -3742,6 +3748,16 @@
 	)
 	(wire
 		(pts
+			(xy 231.14 63.5) (xy 237.49 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0dd195aa-3cf4-44e9-bc1d-d87e90f11586")
+	)
+	(wire
+		(pts
 			(xy 351.79 243.84) (xy 351.79 247.65)
 		)
 		(stroke
@@ -3789,16 +3805,6 @@
 			(type default)
 		)
 		(uuid "1755b83c-6b35-4e59-82c7-eb00dd1b2d0f")
-	)
-	(wire
-		(pts
-			(xy 392.43 35.56) (xy 388.62 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "195f2354-efc9-47e7-942e-6a5226c34811")
 	)
 	(wire
 		(pts
@@ -4142,16 +4148,6 @@
 	)
 	(wire
 		(pts
-			(xy 388.62 35.56) (xy 388.62 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "55545f2f-c6fd-4573-8661-67d3b7b47eb2")
-	)
-	(wire
-		(pts
 			(xy 478.79 114.3) (xy 490.22 114.3)
 		)
 		(stroke
@@ -4202,7 +4198,7 @@
 	)
 	(wire
 		(pts
-			(xy 228.6 63.5) (xy 237.49 63.5)
+			(xy 228.6 63.5) (xy 231.14 63.5)
 		)
 		(stroke
 			(width 0)
@@ -4302,16 +4298,6 @@
 	)
 	(wire
 		(pts
-			(xy 388.62 33.02) (xy 388.62 29.21)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "63d30015-3c09-40af-80e0-4df4bb74b2c1")
-	)
-	(wire
-		(pts
 			(xy 427.99 191.77) (xy 425.45 191.77)
 		)
 		(stroke
@@ -4362,16 +4348,6 @@
 	)
 	(wire
 		(pts
-			(xy 276.86 68.58) (xy 283.21 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6bf20eb2-08d4-441d-8512-29581ac9fa12")
-	)
-	(wire
-		(pts
 			(xy 293.37 96.52) (xy 289.56 96.52)
 		)
 		(stroke
@@ -4399,6 +4375,16 @@
 			(type default)
 		)
 		(uuid "73ee10e0-6893-4428-9a88-dc99996c2284")
+	)
+	(wire
+		(pts
+			(xy 275.59 68.58) (xy 283.21 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "773e1523-ca13-4a4e-a094-c778851f9762")
 	)
 	(wire
 		(pts
@@ -4902,6 +4888,16 @@
 	)
 	(wire
 		(pts
+			(xy 231.14 57.15) (xy 231.14 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bef8bd7e-a4da-4a8d-8446-19fd3e5cc562")
+	)
+	(wire
+		(pts
 			(xy 384.81 243.84) (xy 392.43 243.84)
 		)
 		(stroke
@@ -5149,16 +5145,6 @@
 			(type default)
 		)
 		(uuid "db74386f-2b84-4136-9db8-1626baefd8a2")
-	)
-	(wire
-		(pts
-			(xy 392.43 33.02) (xy 388.62 33.02)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dd699c7d-bfcd-45ef-af8a-04fc243e09eb")
 	)
 	(wire
 		(pts
@@ -5483,6 +5469,17 @@
 			(justify left bottom)
 		)
 		(uuid "b8076311-21af-45e9-9a14-8bb89a26a870")
+	)
+	(label "MOSFETCONTROL"
+		(at 373.38 165.1 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "db62f1ff-86ae-46d4-8886-5b3d45c278ef")
 	)
 	(label "GPIOTempSurface"
 		(at 375.92 147.32 0)
@@ -6317,7 +6314,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
 			(at 210.82 39.878 90)
 			(effects
 				(font
@@ -7120,7 +7117,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 303.2252 74.93 0)
 			(effects
 				(font
@@ -7437,6 +7434,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 231.14 57.15 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6a06099d-2f59-4499-ab4c-74fe4bd35622")
+		(property "Reference" "#FLG01"
+			(at 231.14 55.245 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 231.14 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 231.14 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 231.14 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 231.14 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8496e137-7d93-4c44-b39f-577325dc06f8")
+		)
+		(instances
+			(project "Group52HeatedBridge"
+				(path "/bb48adda-4915-4436-95dc-e9dcb2cba51b"
+					(reference "#FLG01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "2025-02-28_21-13-51:54-00166")
 		(at 210.82 67.31 0)
 		(unit 1)
@@ -7462,7 +7525,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN3_54-00166_TEN"
+		(property "Footprint" "footprints_barrel:CONN3_54-00166_TEN"
 			(at 210.82 67.31 0)
 			(effects
 				(font
@@ -7646,72 +7709,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 388.62 38.1 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "733bb913-94f6-4789-9050-2f782944cb5a")
-		(property "Reference" "#PWR018"
-			(at 388.62 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 388.62 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 388.62 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 388.62 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 388.62 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "bd3603cb-d798-4a5c-b17a-ee22660e65df")
-		)
-		(instances
-			(project "Group52HeatedBridge"
-				(path "/bb48adda-4915-4436-95dc-e9dcb2cba51b"
-					(reference "#PWR018")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 311.15 111.76 270)
 		(unit 1)
@@ -7878,7 +7875,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 248.92 68.58 0)
 			(effects
 				(font
@@ -8012,7 +8009,7 @@
 				)
 			)
 		)
-		(property "Footprint" "PG-TO220-3_INF"
+		(property "Footprint" "footprints:PG-TO220-3_INF"
 			(at 233.68 38.1 0)
 			(effects
 				(font
@@ -8229,7 +8226,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
 			(at 220.472 44.45 90)
 			(effects
 				(font
@@ -8335,72 +8332,6 @@
 			(project "Group52HeatedBridge"
 				(path "/bb48adda-4915-4436-95dc-e9dcb2cba51b"
 					(reference "R4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 388.62 29.21 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "929cfeb8-ac23-43e3-8afe-fe2e78673a32")
-		(property "Reference" "#FLG01"
-			(at 388.62 27.305 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 388.62 24.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 388.62 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 388.62 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 388.62 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ffe5ed4a-5fc2-44f9-a736-6e256ceb9a4c")
-		)
-		(instances
-			(project "Group52HeatedBridge"
-				(path "/bb48adda-4915-4436-95dc-e9dcb2cba51b"
-					(reference "#FLG01")
 					(unit 1)
 				)
 			)
@@ -8840,7 +8771,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Inductor_SMD:L_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 293.37 59.69 0)
 			(effects
 				(font
@@ -8976,7 +8907,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 238.4552 72.39 0)
 			(effects
 				(font
@@ -9775,76 +9706,6 @@
 			(project "Group52HeatedBridge"
 				(path "/bb48adda-4915-4436-95dc-e9dcb2cba51b"
 					(reference "J4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x02")
-		(at 397.51 33.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fd24f8a0-d015-4d4f-9e44-3b1f7867e5b8")
-		(property "Reference" "J11"
-			(at 400.05 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Regulator Vin"
-			(at 400.05 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
-			(at 397.51 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 397.51 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 397.51 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d02bee5f-53ee-4527-a717-ccfec841a667")
-		)
-		(pin "2"
-			(uuid "32082b54-1554-4436-bf18-6919f70a607b")
-		)
-		(instances
-			(project "Group52HeatedBridge"
-				(path "/bb48adda-4915-4436-95dc-e9dcb2cba51b"
-					(reference "J11")
 					(unit 1)
 				)
 			)
