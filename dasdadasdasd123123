@@ -1,0 +1,185 @@
+[33mcommit f4dfa3189b4129a23ac0fde93a16864fdfd62018[m[33m ([m[1;36mHEAD -> [m[1;32mkhamza[m[33m, [m[1;31morigin/khamza[m[33m)[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Mon Mar 3 11:36:19 2025 -0600
+
+    resize schematic
+
+[33mcommit 1c2d0f0bc050ae49dcb2511e43d4966ccc789278[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Mon Mar 3 11:34:33 2025 -0600
+
+    B
+    Revert "resized schematic and cleaned up"
+    
+    This reverts commit bab35e5b8986f5439bb45f55d315508e4487ff8d.
+    
+    reverted auto save file
+
+[33mcommit bab35e5b8986f5439bb45f55d315508e4487ff8d[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Mon Mar 3 01:04:06 2025 -0600
+
+    resized schematic and cleaned up
+
+[33mcommit cad772a3a7e0ae128bc41a85525c6c7cce625aef[m
+Author: khamzat115 <98963065+khamzat115@users.noreply.github.com>
+Date:   Sun Mar 2 22:46:42 2025 -0600
+
+    power subsytem schematic push - second
+
+[33mcommit 74594e8ac6f2543b62fded290209c5418c824b3f[m
+Author: khamzat115 <98963065+khamzat115@users.noreply.github.com>
+Date:   Sun Mar 2 16:09:24 2025 -0600
+
+    power subsytem schematic push - second try
+
+[33mcommit e59cd2bb619aaa30ff1eb733997b51a6ece6c09b[m
+Author: khamzat115 <98963065+khamzat115@users.noreply.github.com>
+Date:   Sun Mar 2 12:21:32 2025 -0600
+
+    power subsytem schematic - more chnages
+
+[33mcommit 74dd66ba5d20868be9a6b65dcc8dcb3bf3582fd0[m
+Author: khamzat115 <98963065+khamzat115@users.noreply.github.com>
+Date:   Sun Mar 2 12:18:40 2025 -0600
+
+    power subsytem schematic
+
+[33mcommit 3911957f958f1cebced99ca820364ebe81b2b0da[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Fri Feb 28 15:30:17 2025 -0600
+
+    added more labels for orientation
+
+[33mcommit ebb81d0aea37dbcdc47be50ed2d4006d7d542352[m[33m ([m[1;31morigin/jdraue2[m[33m, [m[1;32mmain[m[33m, [m[1;32mjdraue2[m[33m)[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Fri Feb 28 15:11:33 2025 -0600
+
+    scematic passes DRC except one error where we need to draw the actual physical border of our PCB, components are flipped tho
+
+[33mcommit 6312955be926c05a763453ad3586d074578f7e2d[m
+Author: jdraue2 <jdraue2@illinois.edu>
+Date:   Thu Feb 27 22:04:51 2025 -0600
+
+    Added IO and rain sensor to schematic
+
+[33mcommit ee5f5341405cfd01fb3d7a19ce8f054196d7e9e7[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Thu Feb 27 20:33:53 2025 -0600
+
+    grid size update fix
+
+[33mcommit 5e219516e2dc2cf0acbacfb934e454bb016b1016[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Thu Feb 27 19:02:56 2025 -0600
+
+    updated schematic
+
+[33mcommit 89018e8b528a534baaa5e6ed4c436d8d58522661[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Wed Feb 26 12:24:45 2025 -0600
+
+    added connectors and researched new temp sensor that is waterproof and easy to interface with
+
+[33mcommit 81765f2b086146e523f176ff091c8f03d8633686[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Wed Feb 26 11:21:28 2025 -0600
+
+    added deleted schematic
+
+[33mcommit e2d2553a3b98f408482e90c8f3354837e47bcc0a[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Tue Feb 25 21:57:28 2025 -0600
+
+    updated notebook
+
+[33mcommit f4b5bcf734c6204a82ebcc4ca46e7dedc3964e7b[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Tue Feb 25 21:49:45 2025 -0600
+
+    added schematic
+
+[33mcommit 2a47fa736aad112ec87ade3ad522b45f3879cfbf[m
+Merge: 7fd3944 e54e9c4
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Mon Feb 24 13:19:29 2025 -0600
+
+    Merge branch 'main' of https://github.com/adrieltap/ECE445-Project
+
+[33mcommit 7fd39448139d5076fa8685e5208c02867ba520f9[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Mon Feb 24 13:19:21 2025 -0600
+
+    updated notebook
+
+[33mcommit e54e9c4056905775d71e3ea1e4564abf07334653[m
+Author: khamzat115 <98963065+khamzat115@users.noreply.github.com>
+Date:   Mon Feb 24 10:42:03 2025 -0600
+
+    notes update
+
+[33mcommit 3385729f1ead5509dac2203391bde5dc9662b46b[m
+Author: khamzat115 <98963065+khamzat115@users.noreply.github.com>
+Date:   Mon Feb 24 10:24:49 2025 -0600
+
+    Update kahmil_labnotebook.md
+
+[33mcommit 8393c9248de57d55c4f011a8dd0a4084ffd0a1ce[m
+Author: khamzat115 <98963065+khamzat115@users.noreply.github.com>
+Date:   Mon Feb 24 10:00:12 2025 -0600
+
+    Update kahmil_labnotebook.md
+
+[33mcommit ce9ea3528748acd535552bb2839e2264be7f30af[m
+Author: khamzat115 <98963065+khamzat115@users.noreply.github.com>
+Date:   Mon Feb 24 09:57:56 2025 -0600
+
+    parts for power supply
+
+[33mcommit 409ee52edb595aec06e72c3121b1ffd731ba6689[m
+Author: khamzat115 <98963065+khamzat115@users.noreply.github.com>
+Date:   Mon Feb 24 08:09:52 2025 -0600
+
+    :\
+
+[33mcommit e5d128e1cd9f47982ea1dcd91817589b6cfcc7e3[m
+Author: khamzat115 <98963065+khamzat115@users.noreply.github.com>
+Date:   Mon Feb 24 08:06:49 2025 -0600
+
+    switching to a digital notebook :"
+
+[33mcommit 5f112884c99099e90dfd20ccb80a25501f7049a8[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Wed Feb 19 17:55:33 2025 -0600
+
+    added more entries
+
+[33mcommit dc71bb5a0f9df1789000ab1623b54ddcb02bb05b[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Sun Feb 16 21:26:09 2025 -0600
+
+    added git ignroe
+
+[33mcommit aac7ab446c50b1d21952abe2d7218dbb319c3959[m
+Author: taparra2 <ataparra20@gmail.com>
+Date:   Sun Feb 16 21:24:12 2025 -0600
+
+    added gitignore file
+
+[33mcommit 4d9f0f9e2c2c9bf61cef9b76b22be5144bc0759d[m
+Author: adrieltap <142434056+adrieltap@users.noreply.github.com>
+Date:   Tue Feb 11 17:21:09 2025 -0600
+
+    Update README.md
+
+[33mcommit 3c08300a153e6080c2628e1cef1e32dc8e763b33[m
+Author: adrieltap <142434056+adrieltap@users.noreply.github.com>
+Date:   Tue Feb 11 17:18:28 2025 -0600
+
+    Create taparra2-Lab-Notebook.md
+
+[33mcommit 00e42b22e6d1d6a174f410186c5dc480fa4f8922[m
+Author: adrieltap <142434056+adrieltap@users.noreply.github.com>
+Date:   Tue Feb 11 17:17:16 2025 -0600
+
+    Initial commit
