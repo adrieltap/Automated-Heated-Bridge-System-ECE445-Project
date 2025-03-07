@@ -24,6 +24,8 @@
     - [PCB review session](#pcb-review-session)
   - [3/1/2025 - Power Subsystem Schematic](#312025---power-subsystem-schematic)
   - [3/2/2025 - MOSFET + Buck Converter Schematic](#322025---mosfet--buck-converter-schematic)
+  - [3/5/2025 - TA meeting](#352025---ta-meeting)
+    - [Questions](#questions-1)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -42,6 +44,7 @@
 9. **Can we order parts ourselves and get reimbursed?**
 10. **Where are the lockers?**
 11. The approprate place to add capacitors? (e.g buck converter input, output, etc.)
+12. Can we actually get 3A current to the each of the heater cartridges?
 
 
 ## 2/17/2025 - Handwritten notes
@@ -175,6 +178,19 @@ A buck converter uses switching elements (transistors, diodes, inductors, and ca
 - The following resources were helpful:
   - [Mosfet as a switch](https://www.youtube.com/watch?v=UJkHL-6mn8s&t=769s)
   - [Cadlab Buck Converter schematic](https://cadlab.io/project/27732/master/files/BUCK-CONVERTER.kicad_pro)
+- We were able to order a PCB for the first round PCBway orders but we dont think it'll work because there were a few issues we didn't fix before ordering:
+  - The power lines were not rated for 6A, the max we had was 3A.
+  - We probably need some decoupling capacitors.
+  - We also wanna isolate the 3.3V from the buck converter so we can test the sensing subsystem and the power subsystem independently.
+
+## 3/5/2025 - TA meeting
+- There's a group doing an Athletic Tracking Sensor project. I think we have some similar components and functionality so we can talk to them.
+- Ask ECE supply shop for buck converter and do it for the breadboard demo
+### Questions
+- Can you review our PCB design?
+- What do we need for the breadboard demo?
+- Discuss with the TA about tolerance analysis section
+
 
 ## Safety
 
