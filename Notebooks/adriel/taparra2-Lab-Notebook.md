@@ -192,3 +192,9 @@ Thermocouple - measures what it touches
 		* Add LED for ON for the sensors?
 		* Other LED indicators?
 	* ADD test points
+
+# 3/8/2025
+* Add design document stuff
+* Switched ESP32 MCU
+* PCB mistake, find VIN in the schematic!!! do not put it into 3.3V
+* Today working on breadboard demo
