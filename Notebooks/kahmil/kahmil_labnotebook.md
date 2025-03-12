@@ -26,6 +26,13 @@
   - [3/2/2025 - MOSFET + Buck Converter Schematic](#322025---mosfet--buck-converter-schematic)
   - [3/5/2025 - TA meeting](#352025---ta-meeting)
     - [Questions](#questions-1)
+  - [3/9/2025 - Electrical Safety: Fundamentals (Department of Research safety)](#392025---electrical-safety-fundamentals-department-of-research-safety)
+    - [Do's and Don'ts](#dos-and-donts)
+  - [3/10/2025](#3102025)
+    - [Needed components](#needed-components)
+    - [Breadboard demo](#breadboard-demo)
+  - [3/11/2025](#3112025)
+    - [Todo for pcb/schematic](#todo-for-pcbschematic)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -191,7 +198,61 @@ A buck converter uses switching elements (transistors, diodes, inductors, and ca
 - What do we need for the breadboard demo?
 - Discuss with the TA about tolerance analysis section
 
+## 3/9/2025 - Electrical Safety: Fundamentals (Department of Research safety)
+- Water droplets = charges, gravity/height = voltage, water flowing = current
+- Why birds don't get electrocuted on power lines: If the bird's feet are on the same wire, there's no difference in voltage so no current flows through the bird. If the bird comes in contact with two wires at different voltages, current will flow (higher to lower voltage) through the bird bcos there's now a potential difference (between its wing and feet).
+- Voltage is relative, it's the difference in potential energy between two points.
+- Standard wall outlets in North America produce 110-120V AC at 60Hz.
+- AC is used because it can be easily transformed (stepped up or down) to reduce power loss in the transmission and distribution lines.
+- In DC circuits, current flows in only one direction and the voltage does not oscillate.
+- Increasing voltage applied to the circuit while maintaining same resistance will result in an increase in current.
+- ![Resistance of the human body](human_body_resistance.png)
+- Ground Fault Circuit Interrupter (GFCI) - the test and reset buttons on power outlets. They should be tested every six months.
+- If your body is in contact with a lower voltage or if you are grounded, you can become a path for current to flow if you touch a higher voltage or live conductor.
+- Having wet skin, clothing or standing on wet floors increases your chances of getting shocked.
+- You can feel a shock at 5mA, At 6mA letting go can become difficult.
+- If someone can't let go, you should shut off power to the circuit immediately.
+- Ask yourself: Am I grounded? If so current can flow from a circuit, through you, to the ground.
+- You can be grounded when:
+  - You are standing on a non-insulating floor surface (e.g. concrete, metal, tile, stone etc.)
+  - You're standing in or near water
+  - Youre in close proximity to water pipes or touching a large solid piece of metal like desk, table, cabinet, equipment rack, etc.
+  - You're in contact with the grounded "side" of your circuit.
+- You can insulate yourself by:
+  - Wearing rubber soled shoes
+  - Standing on non-conductive mats
+  
 
+### Do's and Don'ts
+- Don't use two-to-three prong adapters because they remove the ground connection.
+- Don't touch where current is passing or live conductors?
+
+## 3/10/2025 
+### Needed components
+- Wires that can handle at least 6A of current.
+- 2 Diodes
+- 3 Capacitors (470uf,330uf, 1uf)
+- 1 inductor (47uH)
+- 2 Resistors (10k and 1k or 10ohm)
+- MOSFET (IRLZ44NPBF)
+- Buck Converter (XL1509-3.3)
+- Connectors for barrel jack, heaters, 3.3V output, and input etc
+
+### Breadboard demo
+- I was able to wire up the prebuilt buck converter (and it worked) but I was told it'd be better to not use a pre made module. So we have to build the buck converter ourselves on the pcb.
+- We did have an incident where there was smoke coming from the breadboard when I was trying to convert 24V to 3.3V using the prebuilt module. Maybe 24V is too much for the breadboard
+- We also need to explain how the rain sensor works in our report.
+- All in all, the demo went well.
+
+## 3/11/2025
+- A buck converter is a type of switching voltage regulator
+- Use a buck converter that supplies atleast 1 amps so it can effectively power the esp32 and sensors
+
+### Todo for pcb/schematic
+- Determine if we need a heatsink for the MOSFET.
+- Do we need something to increase the voltage so the mosfet can be turned on?
+- Add test points
+- Increase trace width for 6A of current
 ## Safety
 
 - Wall outlet voltage (120V AC or 230V AC) is deadly.
