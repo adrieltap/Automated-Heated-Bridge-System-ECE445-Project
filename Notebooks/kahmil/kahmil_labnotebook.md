@@ -269,6 +269,7 @@ A buck converter uses switching elements (transistors, diodes, inductors, and ca
 - Do we need something to increase the voltage so the mosfet can be turned on?
 - Add test points
 - Increase trace width for 6A of current
+- separate the 3.3V output from the buck converter for easy debugging
 
 ## 3/12/2025 : Research on Mosfets, gate driver, and heatsinks using ChatGPT
 
