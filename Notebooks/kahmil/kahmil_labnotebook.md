@@ -68,6 +68,7 @@
 10. **Where are the lockers?**
 11. The approprate place to add capacitors? (e.g buck converter input, output, etc.)
 12. Can we actually get 3A current to the each of the heater cartridges?
+13. Is there a way to increase track thickness instead of track width?
 
 
 ## 2/17/2025 - Handwritten notes
