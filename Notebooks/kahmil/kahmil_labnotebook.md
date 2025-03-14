@@ -191,7 +191,7 @@ A buck converter uses switching elements (transistors, diodes, inductors, and ca
 
 0603: Approximately 0.06" x 0.03" (roughly 1.6 mm x 0.8 mm)
 0805: Approximately 0.08" x 0.05" (roughly 2.0 mm x 1.25 mm)" Source: ChatGPT
-- Diodes: The side with the hook or straight line is the cathode.
+- Diodes: The side with the hook or straight line is the cathode (negative).
 - For the Barell connector, we only need the top and bottom pin of the symbol.
 - The IRLZ44NPBF is an N-channel MOSFET.
 
@@ -393,7 +393,11 @@ For **IRLB8743PBF** at **3.3V gate drive (6A current)**:
 3. **Switching to IRLB8743PBF eliminates the need for both a gate driver and a second buck converter.**
 4. **No additional power dissipation concerns—efficiency remains at ~99.85%.**
 
-
+## 3/13/2025 - Determining amount of current flowing through different part of power subsystem to determine track width
+- 6A (141mils): wires that go from Power supply to the two heaters, heaters to mosfet drain, mosfet source to ground, the diode in parallel with the heaters.
+- 3A (54mils): wires that go to each heater in parallel
+- Use normal wires (20mils) for the buck converter and the mosfet input
+- I chnaged the freewheeling diode to a mbr745 because it has higher ratings.
 
 
 
