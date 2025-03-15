@@ -245,15 +245,27 @@ A buck converter uses switching elements (transistors, diodes, inductors, and ca
 - Don't touch where current is passing or live conductors?
 
 ## 3/10/2025 
-### Needed components
-- Wires that can handle at least 6A of current.
-- 2 Diodes
+### Needed components - Power
+- 1 barrel connector (54-00166)
 - 3 Capacitors (470uf,330uf, 1uf)
-- 1 inductor (47uH)
-- 2 Resistors (10k and 1k or 10ohm)
-- MOSFET (IRLZ44NPBF)
 - Buck Converter (XL1509-3.3)
-- Connectors for barrel jack, heaters, 3.3V output, and input etc
+- 1 inductor (47uH)
+- 2 diodes (IN5820, MBR745)
+- 3 2-pin connector for buck converter output and heaters
+- 3 Resistors (10k, 1k, 10ohm)
+- Mosfet (IRLB8743PBF)
+- 
+- Wires that can handle at least 6A of current.
+### Needed components - MCU
+- 3 220ohms resistors
+- 4 100ohms resistors
+- 2 10k ohms resistor
+- 3 1uF capacitor
+- 5 2-pin connector for boot button, en_button sensor LEDs (2.54mm)
+- 3 3-pin connectors for temperature sensors and uart
+- 2 4-pin connector for rain sensor and jtag
+- ESP32-WROOM-32E or ESP32-WROOM-32UE
+
 
 ### Breadboard demo
 - I was able to wire up the prebuilt buck converter (and it worked) but I was told it'd be better to not use a pre made module. So we have to build the buck converter ourselves on the pcb.
@@ -271,6 +283,7 @@ A buck converter uses switching elements (transistors, diodes, inductors, and ca
 - Add test points
 - Increase trace width for 6A of current
 - separate the 3.3V output from the buck converter for easy debugging
+- Decoupling capacitors?
 
 ## 3/12/2025 : Research on Mosfets, gate driver, and heatsinks using ChatGPT
 
