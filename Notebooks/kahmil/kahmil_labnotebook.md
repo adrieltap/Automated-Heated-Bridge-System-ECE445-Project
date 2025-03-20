@@ -29,26 +29,31 @@
   - [3/9/2025 - Electrical Safety: Fundamentals (Department of Research safety)](#392025---electrical-safety-fundamentals-department-of-research-safety)
     - [Do's and Don'ts](#dos-and-donts)
   - [3/10/2025](#3102025)
-    - [Needed components](#needed-components)
+    - [Needed components - Power](#needed-components---power)
+    - [Needed components - MCU](#needed-components---mcu)
     - [Breadboard demo](#breadboard-demo)
   - [3/11/2025](#3112025)
     - [Todo for pcb/schematic](#todo-for-pcbschematic)
   - [3/12/2025 : Research on Mosfets, gate driver, and heatsinks using ChatGPT](#3122025--research-on-mosfets-gate-driver-and-heatsinks-using-chatgpt)
     - [1. Overview](#1-overview)
     - [2. Deciding Whether to Use a Gate Driver or Heatsink](#2-deciding-whether-to-use-a-gate-driver-or-heatsink)
-      - [**2.1. Problem Statement**](#21-problem-statement)
-      - [**2.2. Power Dissipation and Heatsink Requirement Calculations**](#22-power-dissipation-and-heatsink-requirement-calculations)
-      - [**2.3. Decision**](#23-decision)
+      - [2.1. Problem Statement](#21-problem-statement)
+      - [2.2. Power Dissipation and Heatsink Requirement Calculations](#22-power-dissipation-and-heatsink-requirement-calculations)
+      - [2.3. Decision](#23-decision)
     - [3. Exploring Gate Driver Options](#3-exploring-gate-driver-options)
-      - [**3.1. Gate Driver Explanation**](#31-gate-driver-explanation)
-      - [**3.2. Gate Driver Selection Criteria**](#32-gate-driver-selection-criteria)
-      - [**3.3. Gate Driver Candidates**](#33-gate-driver-candidates)
-      - [**3.4. How to Power the Gate Driver**](#34-how-to-power-the-gate-driver)
+      - [3.1. Gate Driver Explanation](#31-gate-driver-explanation)
+      - [3.2. Gate Driver Selection Criteria](#32-gate-driver-selection-criteria)
+      - [3.3. Gate Driver Candidates](#33-gate-driver-candidates)
+      - [3.4. How to Power the Gate Driver](#34-how-to-power-the-gate-driver)
     - [4. Considering Multi-Output Buck Converters](#4-considering-multi-output-buck-converters)
     - [5. Final Decision and Next Steps](#5-final-decision-and-next-steps)
-      - [**Final Components Chosen**](#final-components-chosen)
-      - [**Next Steps**](#next-steps-1)
-    - [**Key Takeaways**](#key-takeaways)
+      - [Final Components Chosen](#final-components-chosen)
+      - [Next Steps](#next-steps-1)
+    - [Key Takeaways](#key-takeaways)
+  - [3/13/2025 - Determining amount of current flowing through different part of power subsystem to determine track width](#3132025---determining-amount-of-current-flowing-through-different-part-of-power-subsystem-to-determine-track-width)
+  - [3/20/2025 - Issues with large trace width](#3202025---issues-with-large-trace-width)
+    - [Reasoning for Choosing CSD17312Q5](#reasoning-for-choosing-csd17312q5)
+    - [Conclusion](#conclusion)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -294,7 +299,7 @@ In this session, I analyzed the best approach for **driving a MOSFET** in my pro
 
 ### 2. Deciding Whether to Use a Gate Driver or Heatsink
 
-#### **2.1. Problem Statement**
+#### 2.1. Problem Statement
 - The **ESP32 outputs only 3.3V** on its GPIO pins.
 - The **IRLZ44NPBF MOSFET** is logic-level but achieves lowest **R_DS(on) at 10V gate drive**, meaning 3.3V **may not fully turn it on**.
 - **Potential problems with using 3.3V drive directly:**
@@ -302,7 +307,7 @@ In this session, I analyzed the best approach for **driving a MOSFET** in my pro
   - Higher conduction losses → Potentially reduced heater power.
   - **Question:** Should I use a **gate driver** to boost the voltage or just add a **heatsink**?
 
-#### **2.2. Power Dissipation and Heatsink Requirement Calculations**
+#### 2.2. Power Dissipation and Heatsink Requirement Calculations
 For **IRLZ44NPBF** at **3.3V gate drive (6A current)**:
 - **Estimated R_DS(on)** at 3.3V: ~**35mΩ**  
 - **Power Dissipation**:
@@ -339,7 +344,7 @@ For **IRLB8743PBF** at **3.3V gate drive (6A current)**:
   $$
   - **38.4°C is very low** → **No heatsink required**.
 
-#### **2.3. Decision**
+#### 2.3. Decision
 - **IRLZ44NPBF at 3.3V is inefficient** (too hot).
 - **IRLB8743PBF at 3.3V works well without a heatsink**.
 - **Conclusion:** **Switch to IRLB8743PBF** instead of using a gate driver or heatsink.
@@ -348,26 +353,26 @@ For **IRLB8743PBF** at **3.3V gate drive (6A current)**:
 
 ### 3. Exploring Gate Driver Options
 
-#### **3.1. Gate Driver Explanation**
+#### 3.1. Gate Driver Explanation
 - A **gate driver** replaces the **3.3V input from the ESP32** with a higher **V_GS (e.g., 10V)** to fully enhance the MOSFET.
 - **How it works:**
   - **ESP32 GPIO (3.3V)** → **Gate Driver Input**
   - **Gate Driver Output (10V–12V)** → **MOSFET Gate**
 - This ensures **low R_DS(on)** and minimal heating.
 
-#### **3.2. Gate Driver Selection Criteria**
+#### 3.2. Gate Driver Selection Criteria
 - **Must accept 3.3V logic input.**
 - **Must output at least 10V.**
 - **Must provide at least 1-2A drive current** to switch the MOSFET efficiently.
 
-#### **3.3. Gate Driver Candidates**
+#### 3.3. Gate Driver Candidates  
 | Gate Driver | Input Voltage | Output Voltage | Peak Current | Notes |
 |-------------|--------------|---------------|-------------|--------|
 | **TC4420** | 3.3V logic | Up to 18V | 6A | Most recommended |
 | **IR4427** | 3.3V logic | Up to 20V | 1.5A | Lower drive capability but works |
 | **IXDN602** | 3.3V logic | Up to 35V | 2A | Supports direct 24V operation |
 
-#### **3.4. How to Power the Gate Driver**
+#### 3.4. How to Power the Gate Driver
 - **Gate driver output voltage = V_DD**
 - If I want **10V output**, I must **power the gate driver with 10V**.
 - **Possible power sources:**
@@ -387,20 +392,20 @@ For **IRLB8743PBF** at **3.3V gate drive (6A current)**:
 ---
 
 ### 5. Final Decision and Next Steps
-#### **Final Components Chosen**
+#### Final Components Chosen
 - **MOSFET:** **IRLB8743PBF** → Fully turns on at 3.3V, so no gate driver needed.
 - **No heatsink needed** → Power dissipation is only **0.216W**.
 - **Power Supply Configuration:**
   - **ESP32 powered by XL1509-3.3 buck converter (24V → 3.3V).**
   - **Gate driver option removed, since IRLB8743PBF can be driven directly**.
 
-#### **Next Steps**
+#### Next Steps 
 - Update **KiCad schematic** to use **IRLB8743PBF** instead of **IRLZ44NPBF**.
 - If unexpected heating occurs, re-evaluate **adding a gate driver**.
 
 ---
 
-### **Key Takeaways**
+### Key Takeaways
 1. **IRLZ44NPBF at 3.3V runs too hot (103°C), requiring a heatsink or gate driver.**
 2. **IRLB8743PBF at 3.3V runs cool (38.4°C), making it the best choice.**
 3. **Switching to IRLB8743PBF eliminates the need for both a gate driver and a second buck converter.**
@@ -415,7 +420,7 @@ For **IRLB8743PBF** at **3.3V gate drive (6A current)**:
 ## 3/20/2025 - Issues with large trace width
 When I started wiring up the PCB, I encountered a lot of programs with making the trace widths (145mils) fit so I had to change some of my components to achieve the desired connections. I chose wider heater connectors and another mosfet with even lower heat dissipation and wide enough footprint for my large tracewidths. A breif jusftification for choosing the CSD17312Q5 mosfet is below (with the hep of chatgpt).
 
-### **Reasoning for Choosing CSD17312Q5**
+### Reasoning for Choosing CSD17312Q5
 The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3V logic)** without requiring a gate driver. Key factors for suitability include:
 
 - **Low Gate Threshold Voltage (V_GS(th))**:  
@@ -425,9 +430,9 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - **Low On-Resistance (R_DS(on)) at 3V Gate Drive**:  
   - **1.8 mΩ at V_GS = 3V**, leading to minimal conduction losses.
   - At **6A**, power dissipation is:  
-    \[
+    $$
     P = I^2 \times R_{DS(on)} = (6A)^2 \times 1.8mΩ = 0.065W
-    \]
+    $$
   - **No heat sink required** at this power level.
 
 - **Gate Charge (Q_g) is Manageable for ESP32**:  
@@ -437,12 +442,12 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - **Thermal Performance is Sufficient**:  
   - Thermal resistance **R_θJA = 49°C/W**.  
   - Junction temperature at **6A**:
-    \[
+    $$
     T_J = T_A + (P \times R_{\theta JA}) = 25°C + (0.065W \times 49) = 28.2°C
-    \]
+    $$
   - **Very low temperature rise → No need for additional cooling.**
 
-### **Conclusion**
+### Conclusion
 - The **ESP32 can drive the CSD17312Q5 directly at 3.3V** without a gate driver.  
 - **Minimal power dissipation** (~0.065W at 6A), so **no heat sink is needed**.  
 
