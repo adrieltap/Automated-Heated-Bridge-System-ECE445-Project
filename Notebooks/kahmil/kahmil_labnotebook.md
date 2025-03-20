@@ -412,6 +412,39 @@ For **IRLB8743PBF** at **3.3V gate drive (6A current)**:
 - Use normal wires (20mils) for the buck converter and the mosfet input
 - I chnaged the freewheeling diode to a mbr745 because it has higher ratings.
 
+## 3/20/2025 - Issues with large trace width
+When I started wiring up the PCB, I encountered a lot of programs with making the trace widths (145mils) fit so I had to change some of my components to achieve the desired connections. I chose wider heater connectors and another mosfet with even lower heat dissipation and wide enough footprint for my large tracewidths. A breif jusftification for choosing the CSD17312Q5 mosfet is below (with the hep of chatgpt).
+
+### **Reasoning for Choosing CSD17312Q5**
+The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3V logic)** without requiring a gate driver. Key factors for suitability include:
+
+- **Low Gate Threshold Voltage (V_GS(th))**:  
+  - Starts turning on at **0.9V – 1.5V** (typical **1.1V**).
+  - Fully operational at **3.3V**, ensuring the ESP32 can drive it directly.
+
+- **Low On-Resistance (R_DS(on)) at 3V Gate Drive**:  
+  - **1.8 mΩ at V_GS = 3V**, leading to minimal conduction losses.
+  - At **6A**, power dissipation is:  
+    \[
+    P = I^2 \times R_{DS(on)} = (6A)^2 \times 1.8mΩ = 0.065W
+    \]
+  - **No heat sink required** at this power level.
+
+- **Gate Charge (Q_g) is Manageable for ESP32**:  
+  - **28 nC at 4.5V** → ESP32 can switch it, though not as fast as a dedicated gate driver.
+  - Suitable for low-frequency switching applications.
+
+- **Thermal Performance is Sufficient**:  
+  - Thermal resistance **R_θJA = 49°C/W**.  
+  - Junction temperature at **6A**:
+    \[
+    T_J = T_A + (P \times R_{\theta JA}) = 25°C + (0.065W \times 49) = 28.2°C
+    \]
+  - **Very low temperature rise → No need for additional cooling.**
+
+### **Conclusion**
+- The **ESP32 can drive the CSD17312Q5 directly at 3.3V** without a gate driver.  
+- **Minimal power dissipation** (~0.065W at 6A), so **no heat sink is needed**.  
 
 
 
