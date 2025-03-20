@@ -23,6 +23,7 @@
       - [PCB Editor](#pcb-editor)
     - [PCB review session](#pcb-review-session)
   - [3/1/2025 - Power Subsystem Schematic](#312025---power-subsystem-schematic)
+  - [3/13/2025 - Determining amount of current flowing through different part of power subsystem to determine track width](#3132025---determining-amount-of-current-flowing-through-different-part-of-power-subsystem-to-determine-track-width)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -166,6 +167,12 @@ A buck converter uses switching elements (transistors, diodes, inductors, and ca
 - Diodes: The side with the hook or straight line is the cathode.
 - For the Barell connector, we only need the top and bottom pin of the symbol.
 - The IRLZ44NPBF is an N-channel MOSFET.
+
+## 3/13/2025 - Determining amount of current flowing through different part of power subsystem to determine track width
+- 6A (141mils): wires that go from Power supply to the two heaters, heaters to mosfet drain, mosfet source to ground, the diode in parallel with the heaters.
+- 3A (54mils): wires that go to each heater in parallel
+- Use normal wires (20mils) for the buck converter and the mosfet input
+- I chnaged the freewheeling diode to a mbr745 because it has higher ratings.
 
 ## Safety
 
