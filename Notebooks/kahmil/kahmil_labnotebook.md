@@ -451,7 +451,16 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - The **ESP32 can drive the CSD17312Q5 directly at 3.3V** without a gate driver.  
 - **Minimal power dissipation** (~0.065W at 6A), so **no heat sink is needed**.  
 
+## 3/24/25: TA meeting questions + PCB checks
+### TA meeting
+- Can we use content/paragraphs from design doc for the individual report? What if it's sections that we wrote personally.
 
+### PCB checks
+- Make sure the trace widths for the buck converter vin is large enough
+- Make sure the buck converter can produce enough current to power the mcu and sensors
+- Verify the fact that the mosfet ground (carrying 6A) is connected to the ground plane
+- Test points
+- Scatter vias all around the PCB.
 
 ## Safety
 
