@@ -198,3 +198,15 @@ Thermocouple - measures what it touches
 * Switched ESP32 MCU
 * PCB mistake, find VIN in the schematic!!! do not put it into 3.3V
 * Today working on breadboard demo
+
+# 3/21/2025
+* Plan for modifying PCB of Control Subsystem
+	* Find VIN in the schematic, put it into 3.3V
+	* Check if the pins match from the previous schematic / PCB design
+		* Fix UART pin
+	* Check new example schematic
+	* Open the pins needed for programming 
+# 3/24/2025
+* More reminders for modifying PCB
+	* Debug pins
+	* Find a way to separate power and control subsystem
