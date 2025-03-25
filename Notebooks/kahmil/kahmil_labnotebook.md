@@ -454,6 +454,7 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 ## 3/24/25: TA meeting questions + PCB checks
 ### TA meeting
 - Can we use content/paragraphs from design doc for the individual report? What if it's sections that we wrote personally.
+- How do we pick up parts and PCB?
 
 ### PCB checks
 - Make sure the trace widths for the buck converter vin is large enough
@@ -461,6 +462,7 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - Verify the fact that the mosfet ground (carrying 6A) is connected to the ground plane
 - Test points
 - Scatter vias all around the PCB.
+- Review the PCB checklist.
 
 ## Safety
 
