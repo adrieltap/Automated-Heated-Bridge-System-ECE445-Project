@@ -457,12 +457,15 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - How do we pick up parts and PCB?
 
 ### PCB checks
-- Make sure the trace widths for the buck converter vin is large enough
-- Make sure the buck converter can produce enough current to power the mcu and sensors
+- Make sure the trace widths for the buck converter vin is large enough (it should carry at most 2A cos that's the max load).
+- Make sure the buck converter can produce enough current to power the mcu and sensors (it should)
 - Verify the fact that the mosfet ground (carrying 6A) is connected to the ground plane
 - Test points
 - Scatter vias all around the PCB (explain the significance of this).
 - Review the PCB checklist.
+
+## 3/27/25
+- Our buck converter (XL1509) can power a max 2A load. Need to verify that the mcu plus sensor don't require more than this plus the trace width needs to be atleast 31mils.
 
 ## Safety
 
