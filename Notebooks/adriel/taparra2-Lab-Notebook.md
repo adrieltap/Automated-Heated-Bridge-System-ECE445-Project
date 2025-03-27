@@ -210,3 +210,12 @@ Thermocouple - measures what it touches
 * More reminders for modifying PCB
 	* Debug pins
 	* Find a way to separate power and control subsystem
+* Finished updating PCB with ESP32-WROOM-32E
+	* https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf
+* Added testpoints and cleaned up plane
+* Researched how to program ESP32
+	* Will try to use UART interface
+		* https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/uart.html
+	* Will use this to convert USB to UART
+		* https://www.silabs.com/interface/usb-bridges/classic/device.cp2102?tab=specs
+*
