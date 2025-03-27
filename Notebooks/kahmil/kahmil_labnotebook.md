@@ -461,7 +461,7 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - Make sure the buck converter can produce enough current to power the mcu and sensors
 - Verify the fact that the mosfet ground (carrying 6A) is connected to the ground plane
 - Test points
-- Scatter vias all around the PCB.
+- Scatter vias all around the PCB (explain the significance of this).
 - Review the PCB checklist.
 
 ## Safety
