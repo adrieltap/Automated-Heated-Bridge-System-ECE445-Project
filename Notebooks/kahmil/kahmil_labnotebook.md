@@ -467,6 +467,10 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 ## 3/27/25
 - Our buck converter (XL1509) can power a max 2A load. Need to verify that the mcu plus sensor don't require more than this plus the trace width needs to be atleast 31mils.
 
+## 4/2/25: Noticed Issues
+- Need to order cheaper, generic connectors.
+- Need to fix PCB high value capacitors (either chnage to through hole or find/order 330uF SMD capacitors)
+- Order more ESP32 microprocessors.
 ## Safety
 
 - Wall outlet voltage (120V AC or 230V AC) is deadly.
