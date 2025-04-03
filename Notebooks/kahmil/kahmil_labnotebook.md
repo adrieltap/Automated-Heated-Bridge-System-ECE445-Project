@@ -476,6 +476,7 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - What if I solder some subsystem but don't solder others, will it still work?
 - Rearrange the components a bit to make sure 6A from mosfet source has a place to go.
 - Add a connector pin for 3.3V to the mosfet section for more isolation? That way we can test it without using the MCU?
+- Why are traces same color as ground plane?
 ## Safety
 
 - Wall outlet voltage (120V AC or 230V AC) is deadly.
