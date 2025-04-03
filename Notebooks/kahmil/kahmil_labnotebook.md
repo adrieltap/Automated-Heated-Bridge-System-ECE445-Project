@@ -471,6 +471,11 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - Need to order cheaper, generic connectors.
 - Need to fix PCB high value capacitors (either chnage to through hole or find/order 330uF SMD capacitors)
 - Order more ESP32 microprocessors.
+- Confirm that the capacitors don't need a large trace width cos they store a lot of charge.
+- Is it possible to isolate the different parts of the PCB such that they can be tested individually?
+- What if I solder some subsystem but don't solder others, will it still work?
+- Rearrange the components a bit to make sure 6A from mosfet source has a place to go.
+- Add a connector pin for 3.3V to the mosfet section for more isolation? That way we can test it without using the MCU?
 ## Safety
 
 - Wall outlet voltage (120V AC or 230V AC) is deadly.
