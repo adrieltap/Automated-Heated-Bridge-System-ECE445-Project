@@ -471,7 +471,7 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - The longer lead on the capacitor (35ZLH330MEFCT810X12.5) indicates positive. The negative side usually has a stripe.
 - **When you add a new footprint, make sure to close the whole project and open it again, unless it won't show up.**
 - The 105 capacitor in the buck converter doc is 1uF. First two digits: significant figures → 10; Third digit: number of zeros → 5 → 00000. So: 10 × 10⁵ pF = 1,000,000 pF = 1 µF
-- 
+- For the flyback diode across the heaters, the cathode goes to +24V, and the anode goes to the Drain. Just decide what side is the anode/cathode and connect it appropriately.
 
 ## 4/2/25: Noticed Issues
 - Need to order cheaper, generic connectors.
@@ -479,7 +479,7 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - Order more ESP32 microprocessors.
 - Confirm that the capacitors don't need a large trace width cos they store a lot of charge.
 - Is it possible to isolate the different parts of the PCB such that they can be tested individually?
-- What if I solder some subsystem but don't solder others, will it still work?
+- What if I solder some subsystem but don't solder others, will it still work? Yep.
 - Rearrange the components a bit to make sure 6A from mosfet source has a place to go.
 - Add a connector pin for 3.3V to the mosfet section for more isolation? That way we can test it without using the MCU?
 - Why are traces same color as ground plane?
