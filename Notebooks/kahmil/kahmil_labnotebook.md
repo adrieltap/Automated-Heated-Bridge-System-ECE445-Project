@@ -484,14 +484,28 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - Add a connector pin for 3.3V to the mosfet section for more isolation? That way we can test it without using the MCU?
 - Why are traces same color as ground plane?
 
-## 4/6/2025 - Exact number of each component on the PCB
-- 2 input generic connectors: 1
+## 4/6/2025 - Exact number (35 total) of each component on the PCB
+
 - 10 ohm resistor: 1
-- 10k ohm resistor: 1
-- CSD.. mosfet: 1
-- 2-input heater connectors: 2
+- 220ohm resistor: 3
+- 10k ohm resistor: 3
+- 0.1uf capacitor: 1
+- 1uf capacitor: 3
+- 22uf capaacitor: 1
+- 330uf capacitor: 1
+- 470uf capacitor: 1
+- 47uH inductor: 1
 - MBR745 diode: 1
-- 
+- in5820 diode: 1
+- 4-input generic connector: 2
+- 3-input generic connector: 2
+- 2 input generic connectors: 8
+- 2-input heater connectors: 2
+- Barell connector: 1
+- CSD.. mosfet: 1
+- xl1509 buck converter: 1
+- esp32: 1
+
 ## Safety
 
 - Wall outlet voltage (120V AC or 230V AC) is deadly.
