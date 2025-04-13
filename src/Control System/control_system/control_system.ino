@@ -28,6 +28,8 @@ void setup() {
   rainSensor.begin();
   rainSensor.setADCWidth(10);
   pinMode(RAIN_SENSOR_DIGITAL_PIN, INPUT_PULLUP);
+  pinMode(AIR_TEMPERATURE_SENSOR_PIN, INPUT_PULLUP);
+  pinMode(SURFACE_TEMPERATURE_SENSOR_PIN, INPUT_PULLUP);
 
   /* Setup LED Pins */
   pinMode(RAIN_SENSOR_LED_PIN, OUTPUT);  // Set the LED pin as an output
