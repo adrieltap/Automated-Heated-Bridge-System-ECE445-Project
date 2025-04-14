@@ -467,8 +467,10 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 ## 3/27/25
 - Our buck converter (XL1509) can power a max 2A load. Need to verify that the mcu plus sensor don't require more than this plus the trace width needs to be atleast 31mils.
 
-## 4/4/25
+## 4/4/25 - Polarity
 - The longer lead on the capacitor (35ZLH330MEFCT810X12.5) indicates positive. The negative side usually has a stripe.
+- The neg to ground and pos to higher volatge.
+- For the in5820 diode: The cathode (stripe side) should connect to the more positive voltage side of the path where current is supposed to stop. The anode connects to the side where the current comes from (ground).
 - **When you add a new footprint, make sure to close the whole project and open it again, unless it won't show up.**
 - The 105 capacitor in the buck converter doc is 1uF. First two digits: significant figures → 10; Third digit: number of zeros → 5 → 00000. So: 10 × 10⁵ pF = 1,000,000 pF = 1 µF
 - For the flyback diode across the heaters, the cathode goes to +24V, and the anode goes to the Drain. Just decide what side is the anode/cathode and connect it appropriately.
