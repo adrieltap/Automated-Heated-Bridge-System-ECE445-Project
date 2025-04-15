@@ -33,7 +33,7 @@ async def run():
             await client.start_notify(CHARACTERISTIC_UUID, notification_handler)
             
             # Keep the connection open for 30 seconds to receive notifications.
-            await asyncio.sleep(30)
+            await asyncio.sleep(60 * 5)
             
             # Stop notifications and disconnect.
             await client.stop_notify(CHARACTERISTIC_UUID)
