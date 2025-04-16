@@ -66,7 +66,8 @@ void loop() {
 
   airTemp = readAirTemperatureSensor();
   surTemp = readSurfaceTemperatureSensor();
-  readRainSensor();
+  rainAmount = readRainSensor();
+  sendValues();
 
   delay(2000);  // Wait 2 seconds before reading again
 }
@@ -79,6 +80,7 @@ float readAirTemperatureSensor()
   Serial.print("Air Temperature: ");
   Serial.print(temperatureC);
   Serial.println(" °C");
+  return temperatureC;
 }
 
 float readSurfaceTemperatureSensor()
@@ -89,12 +91,14 @@ float readSurfaceTemperatureSensor()
   Serial.print("Surface Temperature: ");
   Serial.print(temperatureC);
   Serial.println(" °C");
+  return temperatureC;
 }
 
-void readRainSensor()
+float readRainSensor()
 {
   Serial.print("Raw value of rain sensor: "); // Print information message
-  Serial.println(rainSensor.getRawValue()); // Prints raw value of rain sensor
+  float rain = rainSensor.getRawValue();
+  Serial.println(rain); // Prints raw value of rain sensor
 
   if (rainSensor.getRawValue() <  RAIN_SENSOR_DRY_VAL)
   {
@@ -107,6 +111,7 @@ void readRainSensor()
       digitalWrite(RAIN_SENSOR_LED_PIN, LOW);
   }
   Serial.println();
+  return rain;
 }
 
 void sendValues() {
