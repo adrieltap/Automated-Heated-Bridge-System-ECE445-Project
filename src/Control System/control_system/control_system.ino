@@ -3,12 +3,35 @@
 #include "Simple-rain-sensor-easyC-SOLDERED.h"
 #include <driver/adc.h>
 
+#include <BLEDevice.h>
+#include <BLEServer.h>
+#include <BLEUtils.h>
+#include <BLE2902.h>
+
+/* ESP32 Pins */
 #define AIR_TEMPERATURE_SENSOR_PIN 19
-#define SURFACE_TEMPERATURE_SENSOR_PIN 5
+#define SURFACE_TEMPERATURE_SENSOR_PIN 17
 #define RAIN_SENSOR_DIGITAL_PIN 34
 #define RAIN_SENSOR_ANALOG_PIN 35
 #define RAIN_SENSOR_DRY_VAL 1800
 #define RAIN_SENSOR_LED_PIN 21
+#define MOSFET_CONTROL_PIN 26
+
+/* THRESHOLDS in deg C*/
+#define SURFACE_TEMP_OVERHEAT_THRESHOLD 5
+#define SURFACE_TEMP_THRESHOLD 2
+#define AIR_TEMP_THRESHOLD 2
+#define MOISTURE_THRESHOLD 1800
+
+/* LOOP timer */
+#define INTERVAL 2000
+
+/* Heater State */
+#define HEATER_ON true
+#define HEATER_OFF false
+
+#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
+#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
 OneWire airTemperatureOneWire(AIR_TEMPERATURE_SENSOR_PIN);
 OneWire surfaceTemperatureOneWire(SURFACE_TEMPERATURE_SENSOR_PIN);
@@ -16,6 +39,8 @@ DallasTemperature airTemperatureSensor(&airTemperatureOneWire);
 DallasTemperature surfaceTemperatureSensor(&surfaceTemperatureOneWire);
 
 SimpleRainSensor rainSensor(RAIN_SENSOR_ANALOG_PIN);
+BLECharacteristic* pCharacteristic;
+float airTemp, surfaceTemp, rainAmount;
 
 void setup() {
   Serial.begin(115200);  // Start serial monitor
@@ -30,22 +55,69 @@ void setup() {
   pinMode(RAIN_SENSOR_DIGITAL_PIN, INPUT_PULLUP);
   pinMode(AIR_TEMPERATURE_SENSOR_PIN, INPUT_PULLUP);
   pinMode(SURFACE_TEMPERATURE_SENSOR_PIN, INPUT_PULLUP);
+  pinMode(MOSFET_CONTROL_PIN, OUTPUT);
 
   /* Setup LED Pins */
   pinMode(RAIN_SENSOR_LED_PIN, OUTPUT);  // Set the LED pin as an output
+
+  //---BLE Setup---//
+  BLEDevice::init("ESP32_BLE");
+  BLEServer* pServer = BLEDevice::createServer();
+  BLEService* pService = pServer->createService(SERVICE_UUID);
+  
+  // Create a characteristic with read, write, and notify properties.
+  pCharacteristic = pService->createCharacteristic(
+                      CHARACTERISTIC_UUID,
+                      BLECharacteristic::PROPERTY_READ |
+                      BLECharacteristic::PROPERTY_WRITE |
+                      BLECharacteristic::PROPERTY_NOTIFY
+                    );
+  pCharacteristic->addDescriptor(new BLE2902());
+  
+  pService->start();
+  BLEDevice::getAdvertising()->start();
+  Serial.println("BLE Server started and advertising...");
 
 }
 
 void loop() {
 
-  readAirTemperatureSensor();
-  readSurfaceTemperatureSensor();
-  readRainSensor();
+  surfaceTemp = 0;
+  airTemp = 0;
+  rainAmount = 0;
 
-  delay(2000);  // Wait 2 seconds before reading again
+  surfaceTemp = readSurfaceTemperatureSensor();
+  if (surfaceTemp > SURFACE_TEMP_OVERHEAT_THRESHOLD)
+  {
+    heaterState(HEATER_ON);
+    return;
+  }
+
+  rainAmount = readRainSensor();
+  if (rainAmount >= MOISTURE_THRESHOLD) /* No water detected if true */
+  {
+    heaterState(HEATER_OFF);
+    return;
+  }
+
+  airTemp = readAirTemperatureSensor();
+  if ((airTemp < AIR_TEMP_THRESHOLD) || (surfaceTemp < SURFACE_TEMP_THRESHOLD))
+  {
+    heaterState(HEATER_ON);
+  }
+  else
+  {
+    heaterState(HEATER_OFF);
+  }
+
+  
+  
+  sendValues();
+
+  delay(INTERVAL);  // Wait 2 seconds before reading again
 }
 
-void readAirTemperatureSensor()
+float readAirTemperatureSensor()
 {
   airTemperatureSensor.requestTemperatures();
   float temperatureC = airTemperatureSensor.getTempCByIndex(0);  // Get temperature in Celsius
@@ -53,9 +125,10 @@ void readAirTemperatureSensor()
   Serial.print("Air Temperature: ");
   Serial.print(temperatureC);
   Serial.println(" °C");
+  return temperatureC;
 }
 
-void readSurfaceTemperatureSensor()
+float readSurfaceTemperatureSensor()
 {
   surfaceTemperatureSensor.requestTemperatures();
   float temperatureC = surfaceTemperatureSensor.getTempCByIndex(0);  // Get temperature in Celsius
@@ -63,12 +136,14 @@ void readSurfaceTemperatureSensor()
   Serial.print("Surface Temperature: ");
   Serial.print(temperatureC);
   Serial.println(" °C");
+  return temperatureC;
 }
 
-void readRainSensor()
+float readRainSensor()
 {
   Serial.print("Raw value of rain sensor: "); // Print information message
-  Serial.println(rainSensor.getRawValue()); // Prints raw value of rain sensor
+  float rain = rainSensor.getRawValue();
+  Serial.println(rain); // Prints raw value of rain sensor
 
   if (rainSensor.getRawValue() <  RAIN_SENSOR_DRY_VAL)
   {
@@ -81,4 +156,31 @@ void readRainSensor()
       digitalWrite(RAIN_SENSOR_LED_PIN, LOW);
   }
   Serial.println();
+  return rain;
+}
+
+void heaterState(bool state)
+{
+  if (state)
+  {
+    digitalWrite(MOSFET_CONTROL_PIN, HIGH);
+  }
+  else
+  {
+    digitalWrite(MOSFET_CONTROL_PIN, LOW);
+  }
+}
+
+void sendValues() {
+
+  char buffer[32];
+  sprintf(buffer, "%.2f;%.2f;%.2f", surfaceTemp, airTemp, rainAmount);
+  String valueString = String(buffer);
+
+
+  // Set and notify the new value.
+  pCharacteristic->setValue(valueString.c_str());
+  pCharacteristic->notify();
+  
+  Serial.print("Sent values...");
 }
