@@ -511,6 +511,17 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 ## 4/9/2025 - TA Meeting
 - Order PCB with stencils so we can use the PCB oven.
 - We might have to use 2 PCBs at once. One with sensing subsystem and the second with the rest.
+
+## 4/24/2025 - List of components, modules, sensors, what they do and how they do it
+### Buck Converter
+- 330uf capacitor:
+
+### Mosfet + Heaters
+
+### Sensors
+
+### MCU
+
 ## Safety
 
 - Wall outlet voltage (120V AC or 230V AC) is deadly.
