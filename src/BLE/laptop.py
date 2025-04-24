@@ -1,5 +1,6 @@
 import asyncio
 from bleak import BleakScanner, BleakClient
+#UI pygame
 
 # Same UUIDs as defined in the ESP32 code.
 SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
@@ -33,7 +34,7 @@ async def run():
             await client.start_notify(CHARACTERISTIC_UUID, notification_handler)
             
             # Keep the connection open for 30 seconds to receive notifications.
-            await asyncio.sleep(60 * 5)
+            await asyncio.sleep(60 * 30)
             
             # Stop notifications and disconnect.
             await client.stop_notify(CHARACTERISTIC_UUID)
