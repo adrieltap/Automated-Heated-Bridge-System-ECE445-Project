@@ -18,17 +18,14 @@
 #define MOSFET_CONTROL_PIN 26
 
 /* THRESHOLDS in deg C*/
-#define SURFACE_TEMP_OVERHEAT_THRESHOLD 5
-#define SURFACE_TEMP_THRESHOLD 2
+#define SURFACE_TEMP_OVERHEAT_THRESHOLD 40
+#define SURFACE_TEMP_THRESHOLD 15
 #define AIR_TEMP_THRESHOLD 2
 #define MOISTURE_THRESHOLD 1800
 
 /* LOOP timer */
-#define INTERVAL 2000
+#define INTERVAL 3000
 
-/* Heater State */
-#define HEATER_ON true
-#define HEATER_OFF false
 
 #define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 #define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
@@ -41,6 +38,7 @@ DallasTemperature surfaceTemperatureSensor(&surfaceTemperatureOneWire);
 SimpleRainSensor rainSensor(RAIN_SENSOR_ANALOG_PIN);
 BLECharacteristic* pCharacteristic;
 float airTemp, surfaceTemp, rainAmount;
+bool heaterState = false;
 
 void setup() {
   Serial.begin(115200);  // Start serial monitor
@@ -87,31 +85,31 @@ void loop() {
   rainAmount = 0;
 
   surfaceTemp = readSurfaceTemperatureSensor();
+  rainAmount = readRainSensor();
+  airTemp = readAirTemperatureSensor();
+
   if (surfaceTemp > SURFACE_TEMP_OVERHEAT_THRESHOLD)
   {
-    heaterState(HEATER_ON);
-    return;
+    heaterState = true;
   }
 
-  rainAmount = readRainSensor();
+  
   if (rainAmount >= MOISTURE_THRESHOLD) /* No water detected if true */
   {
-    heaterState(HEATER_OFF);
-    return;
+    heaterState = false;
   }
 
-  airTemp = readAirTemperatureSensor();
+
   if ((airTemp < AIR_TEMP_THRESHOLD) || (surfaceTemp < SURFACE_TEMP_THRESHOLD))
   {
-    heaterState(HEATER_ON);
+    heaterState = true;
   }
   else
   {
-    heaterState(HEATER_OFF);
+    heaterState = false;
   }
-
   
-  
+  updateHeaterState();
   sendValues();
 
   delay(INTERVAL);  // Wait 2 seconds before reading again
@@ -159,9 +157,9 @@ float readRainSensor()
   return rain;
 }
 
-void heaterState(bool state)
+void updateHeaterState()
 {
-  if (state)
+  if (heaterState)
   {
     digitalWrite(MOSFET_CONTROL_PIN, HIGH);
   }
@@ -174,7 +172,7 @@ void heaterState(bool state)
 void sendValues() {
 
   char buffer[32];
-  sprintf(buffer, "%.2f;%.2f;%.2f", surfaceTemp, airTemp, rainAmount);
+  sprintf(buffer, "%.2f;%.2f;%.2f; %.2f", surfaceTemp, airTemp, rainAmount, (float)heaterState);
   String valueString = String(buffer);
 
 
