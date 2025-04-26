@@ -54,6 +54,20 @@
   - [3/20/2025 - Issues with large trace width](#3202025---issues-with-large-trace-width)
     - [Reasoning for Choosing CSD17312Q5](#reasoning-for-choosing-csd17312q5)
     - [Conclusion](#conclusion)
+  - [3/24/25: TA meeting questions + PCB checks](#32425-ta-meeting-questions--pcb-checks)
+    - [TA meeting](#ta-meeting)
+    - [PCB checks](#pcb-checks)
+  - [3/27/25](#32725)
+  - [4/4/25 - Polarity](#4425---polarity)
+  - [4/2/25: Noticed Issues](#4225-noticed-issues)
+  - [4/6/2025 - Exact number (35 total) of each component on the PCB](#462025---exact-number-35-total-of-each-component-on-the-pcb)
+  - [4/9/2025 - TA Meeting](#492025---ta-meeting)
+  - [4/24/2025 - List of components, modules, sensors, what they do and how they do it](#4242025---list-of-components-modules-sensors-what-they-do-and-how-they-do-it)
+    - [Buck Converter Section](#buck-converter-section)
+    - [Mosfet + Heaters](#mosfet--heaters)
+    - [Sensors](#sensors)
+    - [MCU](#mcu)
+  - [Challenges](#challenges)
   - [Safety](#safety)
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
@@ -513,17 +527,21 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 - We might have to use 2 PCBs at once. One with sensing subsystem and the second with the rest.
 
 ## 4/24/2025 - List of components, modules, sensors, what they do and how they do it
-### Buck Converter
+### Buck Converter Section
+![Buck Converter Schematic](buck_conv_sch.png)
+- The buck converter is a type of switching voltage regulator that converts a higher input voltage to a lower output voltage. It works by switching the input voltage on and off at a high frequency, which allows it to store energy in an inductor and release it as a lower voltage at the output.
 - 330uf capacitor:
 
 ### Mosfet + Heaters
-
+![Mosfet + Heaters Schematic](heater_mosfet_sch.png)
 ### Sensors
 
 ### MCU
 
-## Safety
+## Challenges
+- Choosing a mosfet that has a low enough R_DS(on) to dissipate heat without a heatsink, has pins large enough for large trace widths on pcb, can be driven by 3.3V from esp32,
 
+## Safety
 - Wall outlet voltage (120V AC or 230V AC) is deadly.
   - Always use insulated wires, power supplies, and fuses.
 - Current above 30mA can be fatal.
