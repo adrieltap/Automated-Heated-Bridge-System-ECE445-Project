@@ -2,6 +2,7 @@
 #include <DallasTemperature.h>
 #include "Simple-rain-sensor-easyC-SOLDERED.h"
 #include <driver/adc.h>
+#include "Callbacks.h"
 
 #include <BLEDevice.h>
 #include <BLEServer.h>
@@ -17,11 +18,6 @@
 #define RAIN_SENSOR_LED_PIN 21
 #define MOSFET_CONTROL_PIN 26
 
-/* THRESHOLDS in deg C*/
-#define SURFACE_TEMP_OVERHEAT_THRESHOLD 40
-#define SURFACE_TEMP_THRESHOLD 15
-#define AIR_TEMP_THRESHOLD 2
-#define MOISTURE_THRESHOLD 1800
 
 /* LOOP timer */
 #define INTERVAL 3000
@@ -55,9 +51,6 @@ void setup() {
   pinMode(SURFACE_TEMPERATURE_SENSOR_PIN, INPUT_PULLUP);
   pinMode(MOSFET_CONTROL_PIN, OUTPUT);
 
-  /* Setup LED Pins */
-  pinMode(RAIN_SENSOR_LED_PIN, OUTPUT);  // Set the LED pin as an output
-
   //---BLE Setup---//
   BLEDevice::init("ESP32_BLE");
   BLEServer* pServer = BLEDevice::createServer();
@@ -71,11 +64,11 @@ void setup() {
                       BLECharacteristic::PROPERTY_NOTIFY
                     );
   pCharacteristic->addDescriptor(new BLE2902());
+  pCharacteristic->setCallbacks(new Callbacks());
   
   pService->start();
   BLEDevice::getAdvertising()->start();
   Serial.println("BLE Server started and advertising...");
-
 }
 
 void loop() {
@@ -88,19 +81,35 @@ void loop() {
   rainAmount = readRainSensor();
   airTemp = readAirTemperatureSensor();
 
-  if (surfaceTemp > SURFACE_TEMP_OVERHEAT_THRESHOLD)
-  {
-    heaterState = true;
-  }
-
-  
-  if (rainAmount >= MOISTURE_THRESHOLD) /* No water detected if true */
+  /* check if temp sensor is valid value */
+  if ((surfaceTemp <= -127.0) || (airTemp <= -127.0))
   {
     heaterState = false;
+    updateSystemState();
+    return;
+  }
+
+  /* heater mode is ON */
+  if (heaterState)
+  {
+    if (surfaceTemp >= surfaceTempOverheatThreshold)
+    {
+      heaterState = false;
+    }
+    updateSystemState();
+    return;
+  }
+
+  /* No water detected if true */
+  if (rainAmount >= moistureThreshold) 
+  {
+    heaterState = false;
+    updateSystemState();
+    return;
   }
 
 
-  if ((airTemp < AIR_TEMP_THRESHOLD) || (surfaceTemp < SURFACE_TEMP_THRESHOLD))
+  if ((airTemp < airTempThreshold) || (surfaceTemp < surfaceTempThreshold))
   {
     heaterState = true;
   }
@@ -109,10 +118,7 @@ void loop() {
     heaterState = false;
   }
   
-  updateHeaterState();
-  sendValues();
-
-  delay(INTERVAL);  // Wait 2 seconds before reading again
+  updateSystemState();
 }
 
 float readAirTemperatureSensor()
@@ -143,17 +149,6 @@ float readRainSensor()
   float rain = rainSensor.getRawValue();
   Serial.println(rain); // Prints raw value of rain sensor
 
-  if (rainSensor.getRawValue() <  RAIN_SENSOR_DRY_VAL)
-  {
-      Serial.println("Rain is detected");
-      digitalWrite(RAIN_SENSOR_LED_PIN, HIGH);
-  }
-  else
-  {
-      Serial.println("Rain is NOT detected");
-      digitalWrite(RAIN_SENSOR_LED_PIN, LOW);
-  }
-  Serial.println();
   return rain;
 }
 
@@ -180,5 +175,13 @@ void sendValues() {
   pCharacteristic->setValue(valueString.c_str());
   pCharacteristic->notify();
   
-  Serial.print("Sent values...");
+  Serial.println("Sent values...");
+}
+
+void updateSystemState()
+{
+  updateHeaterState();
+  sendValues();
+  Serial.println("");
+  delay(INTERVAL);  // Wait 2 seconds before reading again
 }
