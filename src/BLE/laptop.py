@@ -1,45 +1,173 @@
-import asyncio
+import sys, time, asyncio
+from collections import deque
+
+from PySide6.QtWidgets import (
+    QApplication, QWidget, QVBoxLayout, QHBoxLayout,
+    QLabel, QPushButton, QDoubleSpinBox, QSpinBox
+)
+import pyqtgraph as pg
 from bleak import BleakScanner, BleakClient
-#UI pygame
+from qasync import QEventLoop, asyncSlot
 
-# Same UUIDs as defined in the ESP32 code.
+#Constant UUIDs
 SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-CHARACTERISTIC_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+CHAR_UUID    = "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
-async def notification_handler(sender, data):
-    # Convert the received bytes into a string and print.
-    print("Notification from ESP32:", data.decode())
+HISTORY_SEC = 60 * 20      # seconds shown on x-axis
+SAMPLE_SEC  = 2        # ESP32 sends roughly every 2 s
 
-async def run():
-    print("Scanning for BLE devices...")
-    devices = await BleakScanner.discover()
-    
-    # Automatically find the device with the matching name.
-    esp32_address = None
-    for device in devices:
-        print(f"Found device: {device.name}, address: {device.address}")
-        if device.name == "ESP32_BLE":
-            esp32_address = device.address
-            break
+DEF_AIR = 10
+DEF_SURF = 10
+DEF_MOIS = 3500
+DEF_OVER = 20
 
-    if esp32_address is None:
-        print("ESP32 device not found!")
-        return
 
-    print("Connecting to ESP32 at", esp32_address)
-    async with BleakClient(esp32_address) as client:
-        if client.is_connected:
-            print("Connected to ESP32!")
-            # Start notifications on the characteristic.
-            await client.start_notify(CHARACTERISTIC_UUID, notification_handler)
-            
-            # Keep the connection open for 30 seconds to receive notifications.
-            await asyncio.sleep(60 * 30)
-            
-            # Stop notifications and disconnect.
-            await client.stop_notify(CHARACTERISTIC_UUID)
-        else:
-            print("Failed to connect.")
+class Dashboard(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("ESP32 Bridge Monitor")
 
-if __name__ == '__main__':
-    asyncio.run(run())
+        #Init Plots/Curves
+        self.temp_plot = pg.PlotWidget(background="w")
+        self.temp_plot.setTitle("Temperature (°C)")
+        self.temp_plot.addLegend()
+        self.rain_plot = pg.PlotWidget(background="w")
+        self.rain_plot.setTitle("Rain (raw)")
+        self.rain_plot.addLegend()
+
+        self.surf_curve = self.temp_plot.plot(pen="r", name="surface")
+        self.air_curve  = self.temp_plot.plot(pen="b", name="air")
+        self.rain_curve = self.rain_plot.plot(pen="g", name="rain")
+        self.s_thr_curve = self.temp_plot.plot(pen="k", name="surf thr")
+        self.a_thr_curve = self.temp_plot.plot(pen="c", name="air  thr")
+        self.o_thr_curve = self.temp_plot.plot(pen="m", name="over thr")
+        self.m_thr_curve = self.rain_plot.plot(pen="darkgreen", name="moist thr")
+
+        #Spin-box inits for controling thresholds
+        self.air_spin   = self.dbl_box("air( °C)      ", "", DEF_AIR)
+        self.surf_spin  = self.dbl_box("surface(°C)  ", "", DEF_SURF)
+        self.moist_spin = self.int_box("moisture(Ω) ", DEF_MOIS)
+        self.over_spin  = self.dbl_box("overheat(°C) ", "", DEF_OVER)
+
+        self.lbl_surface = QLabel("Surface: — °C")
+        self.lbl_air     = QLabel("Air:     — °C")
+        self.lbl_rain    = QLabel("Rain:    —")
+        self.lbl_heater  = QLabel("Heater:  —")
+
+        self.update_btn = QPushButton("Update thresholds")
+        self.update_btn.clicked.connect(self.send_thresholds) #Links button press to func
+
+        #Create the layout with right and left sides
+        left = QVBoxLayout()
+        left.addWidget(self.temp_plot)
+        left.addWidget(self.rain_plot)
+
+        right = QVBoxLayout()
+        right.addWidget(QLabel("Thresholds"))
+        for w in (self.air_spin, self.surf_spin, self.moist_spin, self.over_spin):
+            right.addWidget(w)
+        right.addWidget(self.update_btn); right.addStretch()
+
+        right.addWidget(QLabel("Latest values"))
+        for w in (self.lbl_surface, self.lbl_air, self.lbl_rain, self.lbl_heater):
+            right.addWidget(w)
+        right.addSpacing(10)
+
+        main = QHBoxLayout(self)
+        main.addLayout(left, 2); main.addLayout(right, 1)
+
+        # buffers
+        n = HISTORY_SEC // SAMPLE_SEC
+        self.t     = deque(maxlen=n)
+        self.surf  = deque(maxlen=n)
+        self.air   = deque(maxlen=n)
+        self.rain  = deque(maxlen=n)
+        self.s_thr = deque(maxlen=n)
+        self.a_thr = deque(maxlen=n)
+        self.o_thr = deque(maxlen=n)
+        self.m_thr = deque(maxlen=n)
+
+        self.t0 = time.time()
+
+        asyncio.get_event_loop().create_task(self.ble_loop())
+
+    # spin-box helpers
+    def dbl_box(self, prefix, suffix, default):
+        b = QDoubleSpinBox(decimals=1, singleStep=0.1)
+        b.setPrefix(prefix); b.setSuffix(suffix); b.setRange(-50, 150); b.setValue(default)
+        return b
+    def int_box(self, prefix, default):
+        b = QSpinBox(); b.setPrefix(prefix); b.setRange(0, 4095); b.setValue(default)
+        return b
+
+    # BLE discovery → connect → notifications
+    async def ble_loop(self):
+        print("Scanning…")
+        dev = next((d for d in await BleakScanner.discover(5) if d.name == "ESP32_BLE"), None)
+        if not dev: print("ESP32_BLE not found"); return
+        self.client = BleakClient(dev.address)
+        await self.client.connect()
+        await self.client.start_notify(CHAR_UUID, self.handle_pkt)
+        print("Connected; receiving data")
+        self.send_thresholds()
+        while self.client.is_connected:
+            await asyncio.sleep(1)
+
+    # packet handler (update buffers & curves)
+    def handle_pkt(self, _s, data):
+        try:
+            surf, air, rain, _heater = map(float, data.decode().split(";"))
+        except ValueError:
+            return
+
+        print(surf, air, rain, _heater)
+        self.lbl_surface.setText(f"Surface: {surf:.1f} °C")
+        self.lbl_air.setText    (f"Air:     {air:.1f} °C")
+        self.lbl_rain.setText   (f"Rain:    {rain:.0f}")
+        self.lbl_heater.setText (f"Heater:  {'ON' if _heater else 'OFF'}")
+
+        #Update buffer vals
+        t_now = time.time() - self.t0
+        self.t.append(t_now)
+        self.surf.append(surf)
+        self.air.append(air)
+        self.rain.append(rain)
+        self.s_thr.append(self.surf_spin.value())
+        self.a_thr.append(self.air_spin.value())
+        self.o_thr.append(self.over_spin.value())
+        self.m_thr.append(self.moist_spin.value())
+
+        #Buf vals --> curve
+        self.surf_curve.setData(self.t, self.surf)
+        self.air_curve .setData(self.t, self.air)
+        self.rain_curve.setData(self.t, self.rain)
+        self.s_thr_curve.setData(self.t, self.s_thr)
+        self.a_thr_curve.setData(self.t, self.a_thr)
+        self.o_thr_curve.setData(self.t, self.o_thr)
+        self.m_thr_curve.setData(self.t, self.m_thr)
+
+    #Sends threshold vals through BLE
+    @asyncSlot()
+    async def send_thresholds(self):
+        msgs = [
+            f"air={self.air_spin.value():.1f}",
+            f"surface={self.surf_spin.value():.1f}",
+            f"moisture={self.moist_spin.value()}",
+            f"overheat={self.over_spin.value():.1f}",
+        ]
+        for m in msgs:
+            try:
+                await self.client.write_gatt_char(CHAR_UUID, m.encode(), response=True)
+                print("Sent:", m)
+            except Exception as e:
+                print("BLE write failed:", e)
+
+# run app (main code)
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    loop = QEventLoop(app)
+    asyncio.set_event_loop(loop)
+    win = Dashboard()
+    win.resize(960, 560)
+    win.show()
+    with loop: loop.run_forever() #Run with UI window until closed
