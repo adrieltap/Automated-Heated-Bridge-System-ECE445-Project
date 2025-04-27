@@ -57,18 +57,23 @@ class Dashboard(QWidget):
         self.update_btn = QPushButton("Update thresholds")
         self.update_btn.clicked.connect(self.send_thresholds) #Links button press to func
 
+        self.reset_btn  = QPushButton("Reset to defaults")
+        self.reset_btn.clicked.connect(self.reset_thresholds)
+
         #Create the layout with right and left sides
         left = QVBoxLayout()
         left.addWidget(self.temp_plot)
         left.addWidget(self.rain_plot)
 
         right = QVBoxLayout()
-        right.addWidget(QLabel("Thresholds"))
+        right.addWidget(QLabel("Thresholds:"))
         for w in (self.air_spin, self.surf_spin, self.moist_spin, self.over_spin):
             right.addWidget(w)
-        right.addWidget(self.update_btn); right.addStretch()
+        right.addWidget(self.update_btn)
+        right.addWidget(self.reset_btn)
+        right.addStretch()
 
-        right.addWidget(QLabel("Latest values"))
+        right.addWidget(QLabel("Latest Values:"))
         for w in (self.lbl_surface, self.lbl_air, self.lbl_rain, self.lbl_heater):
             right.addWidget(w)
         right.addSpacing(10)
@@ -109,7 +114,7 @@ class Dashboard(QWidget):
         await self.client.connect()
         await self.client.start_notify(CHAR_UUID, self.handle_pkt)
         print("Connected; receiving data")
-        self.send_thresholds()
+        await self.send_thresholds()
         while self.client.is_connected:
             await asyncio.sleep(1)
 
@@ -161,6 +166,13 @@ class Dashboard(QWidget):
                 print("Sent:", m)
             except Exception as e:
                 print("BLE write failed:", e)
+
+    async def reset_thresholds(self):
+        self.air_spin.setValue(DEF_AIR)
+        self.surf_spin.setValue(DEF_SURF)
+        self.moist_spin.setValue(DEF_MOIS)
+        self.over_spin.setValue(DEF_OVER)
+        await self.send_thresholds() 
 
 # run app (main code)
 if __name__ == "__main__":
