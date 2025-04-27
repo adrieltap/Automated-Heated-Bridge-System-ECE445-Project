@@ -1,5 +1,6 @@
 import sys, time, asyncio
 from collections import deque
+import csv
 
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout,
@@ -95,6 +96,28 @@ class Dashboard(QWidget):
         self.t0 = time.time()
 
         asyncio.get_event_loop().create_task(self.ble_loop())
+    
+    def start_csv(self):
+        self.t0 = time.time()  # reset timer at start of test
+        t_now = int(self.t0)   # get the start timestamp in seconds
+
+        filename = f"test_log_{t_now}.csv"
+        self.csv_file = open(filename, mode='w', newline='')
+        self.csv_writer = csv.writer(self.csv_file)
+
+        # Write CSV header
+        self.csv_writer.writerow(["Surface Temp Threshold", "Air Temp Threshold", "Rain Level Threshold", "Overheat Threshold"])
+        self.csv_writer.writerow([self.s_thr, self.a_thr, self.m_thr, self.o_thr])
+        self.csv_writer.writerow(["Time (s)", "Surface Temp (C)", "Air Temp (C)", "Rain Level", "Heater State", "Surface Temp Threshold (C)",])
+
+    def end_csv(self):
+        if hasattr(self, 'csv_file'):
+            self.csv_file.close()
+    
+    def closeEvent(self, event):
+        self.end_csv()
+        event.accept()
+
 
     # spin-box helpers
     def dbl_box(self, prefix, suffix, default):
@@ -115,6 +138,8 @@ class Dashboard(QWidget):
         await self.client.start_notify(CHAR_UUID, self.handle_pkt)
         print("Connected; receiving data")
         await self.send_thresholds()
+        self.send_thresholds()
+        self.start_csv()
         while self.client.is_connected:
             await asyncio.sleep(1)
 
@@ -130,6 +155,12 @@ class Dashboard(QWidget):
         self.lbl_air.setText    (f"Air:     {air:.1f} °C")
         self.lbl_rain.setText   (f"Rain:    {rain:.0f}")
         self.lbl_heater.setText (f"Heater:  {'ON' if _heater else 'OFF'}")
+
+         # --- CSV logging section ---
+        if hasattr(self, 'csv_writer'):
+            t_now = time.time() - self.t0 
+            self.csv_writer.writerow([t_now, surf, air, rain, int(_heater)])
+        # ----------------------------------
 
         #Update buffer vals
         t_now = time.time() - self.t0
