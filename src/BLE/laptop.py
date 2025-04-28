@@ -15,12 +15,14 @@ SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 CHAR_UUID    = "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
 HISTORY_SEC = 60 * 20      # seconds shown on x-axis
-SAMPLE_SEC  = 2        # ESP32 sends roughly every 2 s
+SAMPLE_SEC  = 3        # ESP32 sends roughly every 2 s
 
 DEF_AIR = 10
 DEF_SURF = 10
 DEF_MOIS = 3500
 DEF_OVER = 20
+
+DEF_TEMP_SENSE_VAL = -127
 
 
 class Dashboard(QWidget):
@@ -58,8 +60,8 @@ class Dashboard(QWidget):
         self.update_btn = QPushButton("Update thresholds")
         self.update_btn.clicked.connect(self.send_thresholds) #Links button press to func
 
-        self.reset_btn  = QPushButton("Reset to defaults")
-        self.reset_btn.clicked.connect(self.reset_thresholds)
+        # self.reset_btn  = QPushButton("Reset to defaults")
+        # self.reset_btn.clicked.connect(self.reset_thresholds)
 
         #Create the layout with right and left sides
         left = QVBoxLayout()
@@ -67,13 +69,15 @@ class Dashboard(QWidget):
         left.addWidget(self.rain_plot)
 
         right = QVBoxLayout()
+        #Add the typeboxes for updating thresholds
         right.addWidget(QLabel("Thresholds:"))
         for w in (self.air_spin, self.surf_spin, self.moist_spin, self.over_spin):
             right.addWidget(w)
         right.addWidget(self.update_btn)
-        right.addWidget(self.reset_btn)
+        # right.addWidget(self.reset_btn)
         right.addStretch()
 
+        #Add the recent values display to the UI
         right.addWidget(QLabel("Latest Values:"))
         for w in (self.lbl_surface, self.lbl_air, self.lbl_rain, self.lbl_heater):
             right.addWidget(w)
@@ -107,8 +111,8 @@ class Dashboard(QWidget):
 
         # Write CSV header
         self.csv_writer.writerow(["Surface Temp Threshold", "Air Temp Threshold", "Rain Level Threshold", "Overheat Threshold"])
-        self.csv_writer.writerow([self.s_thr, self.a_thr, self.m_thr, self.o_thr])
-        self.csv_writer.writerow(["Time (s)", "Surface Temp (C)", "Air Temp (C)", "Rain Level", "Heater State", "Surface Temp Threshold (C)",])
+        self.csv_writer.writerow([self.surf_spin.value(), self.air_spin.value(), self.moist_spin.value(), self.over_spin.value()])
+        self.csv_writer.writerow(["Time (s)", "Surface Temp (C)", "Air Temp (C)", "Rain Level", "Heater State"])
 
     def end_csv(self):
         if hasattr(self, 'csv_file'):
@@ -131,16 +135,15 @@ class Dashboard(QWidget):
     # BLE discovery → connect → notifications
     async def ble_loop(self):
         print("Scanning…")
-        dev = next((d for d in await BleakScanner.discover(5) if d.name == "ESP32_BLE"), None)
+        dev = next((d for d in await BleakScanner.discover(5) if d.name == "ESP32_BLE"), None) #Find address of ESP32
         if not dev: print("ESP32_BLE not found"); return
         self.client = BleakClient(dev.address)
-        await self.client.connect()
-        await self.client.start_notify(CHAR_UUID, self.handle_pkt)
+        await self.client.connect() 
+        await self.client.start_notify(CHAR_UUID, self.handle_pkt)  #start the send/receive pipeline
         print("Connected; receiving data")
-        await self.send_thresholds()
-        self.send_thresholds()
+        await self.send_thresholds()    #init thresholds
         self.start_csv()
-        while self.client.is_connected:
+        while self.client.is_connected: #runtime loop
             await asyncio.sleep(1)
 
     # packet handler (update buffers & curves)
@@ -150,6 +153,7 @@ class Dashboard(QWidget):
         except ValueError:
             return
 
+        #Display most recent values
         print(surf, air, rain, _heater)
         self.lbl_surface.setText(f"Surface: {surf:.1f} °C")
         self.lbl_air.setText    (f"Air:     {air:.1f} °C")
@@ -165,8 +169,13 @@ class Dashboard(QWidget):
         #Update buffer vals
         t_now = time.time() - self.t0
         self.t.append(t_now)
-        self.surf.append(surf)
-        self.air.append(air)
+        if surf != DEF_TEMP_SENSE_VAL:
+            last_surf = surf
+        self.surf.append(last_surf)
+
+        if air != DEF_TEMP_SENSE_VAL:
+            last_air = air
+        self.air.append(last_air)
         self.rain.append(rain)
         self.s_thr.append(self.surf_spin.value())
         self.a_thr.append(self.air_spin.value())
@@ -191,6 +200,7 @@ class Dashboard(QWidget):
             f"moisture={self.moist_spin.value()}",
             f"overheat={self.over_spin.value():.1f}",
         ]
+        #Send each thresholds as its own message.
         for m in msgs:
             try:
                 await self.client.write_gatt_char(CHAR_UUID, m.encode(), response=True)
@@ -198,12 +208,12 @@ class Dashboard(QWidget):
             except Exception as e:
                 print("BLE write failed:", e)
 
-    async def reset_thresholds(self):
-        self.air_spin.setValue(DEF_AIR)
-        self.surf_spin.setValue(DEF_SURF)
-        self.moist_spin.setValue(DEF_MOIS)
-        self.over_spin.setValue(DEF_OVER)
-        await self.send_thresholds() 
+    # async def reset_thresholds(self):
+    #     self.air_spin.setValue(DEF_AIR)
+    #     self.surf_spin.setValue(DEF_SURF)
+    #     self.moist_spin.setValue(DEF_MOIS)
+    #     self.over_spin.setValue(DEF_OVER)
+    #     await self.send_thresholds() 
 
 # run app (main code)
 if __name__ == "__main__":
