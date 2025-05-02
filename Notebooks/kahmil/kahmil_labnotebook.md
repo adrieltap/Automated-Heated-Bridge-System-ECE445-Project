@@ -530,10 +530,41 @@ The **CSD17312Q5** MOSFET was selected to be driven directly by the **ESP32 (3.3
 ### Buck Converter Section
 ![Buck Converter Schematic](buck_conv_sch.png)
 - The buck converter is a type of switching voltage regulator that converts a higher input voltage to a lower output voltage. It works by switching the input voltage on and off at a high frequency, which allows it to store energy in an inductor and release it as a lower voltage at the output.
-- 330uf capacitor:
+- 470uf capacitor
+Help smooth the 24V input voltage flunctuations and stores energy for the buck converter. 
+Stabilizes the input voltage.
+- 1uf capacitor
+filters high frequency noice at the buck converter input
+- Xl1509-3.3 
+main buck converter module. 
+Chosen because it steps down directly to 3.3V and it’s 75% efficient compared to a linear regulator that’ll dissipate excess voltage as heat. 
+It uses a high-speed internal switch (MOSFET) to chop the 24V input into pulses.
+It works by switching the input voltage on and off at a high frequency, which allows it to store energy in an inductor and release it as a lower voltage at the output. 
+The feedback pin monitors the output voltage to regulate and adjust the PWM duty cycle. 
+Buck converters are much more efficient because they store and transfer energy using magnetic fields.
+1n5820 schottky diode: 
+provides a low-loss path for inductor current when the buck converter switch is off. 
+Schottky diodes have fast recovery and low forward voltage.
+47uh inductor: 
+stores and smooths the energy transfer from input to output as the buck converter steps down the voltage. 
+Acts as a current smoother, storing energy during the on-phase and releasing it during the off-phase in order to produce clean DC voltage instead of pulsed voltage. 
+It smooths and shapes the chopped voltage pulses
+330uf capacitor: 
+Serves as the output capacitor, smoothing the 3.3v output. 
+Also reduces voltage ripple from inductor current changes thereby stabilizing the output voltage to protect sensitive components.
+
 
 ### Mosfet + Heaters
 ![Mosfet + Heaters Schematic](heater_mosfet_sch.png)
+10ohm resistor: Limits the inrush current to mosfet gate and dampens switching noise
+10kohm resistor: pulls gate low to ensure mosfet stays off when control signal is absent
+CSD17312Q5: 
+n-channel mosfet to switch the heaters on. 
+Has a low rds(on) and wide enough pins for our trace widths. 
+Can get activated at 3.3V making it suitable to be driven by the esp32
+Mbr.. diode: absorbs inductive kickback from heater wiring when mosfet turns off to avoid damage to mosfet
+Heaters: Initially, the heaters are connected to 24V on one side but floats on the other (waiting for the mosfet to complete the circuit). When the gate gets a high signal, the mosfet conducts from drain to source, allowing current flow through the heaters.
+
 ### Sensors
 
 ### MCU
