@@ -157,8 +157,14 @@ Thermocouple - measures what it touches
 			* 5.5 Max V
 	* PIN for Temp1 -> IO17
 	* PIN for Temp2 -> IO19 
-* Pins needed for 1x Moisture Sensor
-	* PINXXX
+* Pins needed for 1x Mouisture Sensor
+	* Using the Simple Rain Sensor
+		* 3.3V power
+		* Analog pin
+		* Digital Pin
+		* GND
+	* https://soldered.com/product/simple-rain-sensor/?srsltid=AfmBOop1M8PKcR7p4fGTHjeK9IQrmTysczny2TCHp53vRtrOn9PUprxF
+	* Will use ADC Pin on ESP32 since we can convert it to digital
 * Voltage Regulator
 * Still need to figure out which pins are necessary for flashing / programming
 	* Good reddit page flashing / programming the MCU
@@ -611,7 +617,28 @@ void updateHeaterState()
 	* Unable to use dry ice
 		* too expensive
 		* cannot get to sub-zero temperatures
-* 
+
+# 4/26/2025
+* Added functionality to save CSV files using python csv library
+* Did some more testing and getting test data for presentation
+
+# 4/27/2025
+* More testing and getting test data
+	* Testing takes a while since we have to wait 5 minutes to get the temperatures low enough
+	* Another 5 minutes to heat up the bridge
+	* Then we have to wait for temperatures to go back to normal when the heaters turn off
+	* This is just for one iteration
+# 4/28/2025
+* Did the final demo
+
+# 5/3/2025 -5/4/2025
+* Practiced presentation, did the slides
+* Dry runs
+
+
+
+
+
 	
 
 
