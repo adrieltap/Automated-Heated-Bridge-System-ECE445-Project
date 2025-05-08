@@ -218,4 +218,400 @@ Thermocouple - measures what it touches
 		* https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/uart.html
 	* Will use this to convert USB to UART
 		* https://www.silabs.com/interface/usb-bridges/classic/device.cp2102?tab=specs
-*
+
+# 4/1/2025
+* New PCB came in, soldered Control and Sensing Subsystem. Having trouble with placing the decoupling capacitors and hand soldering the ESP32, this took the whole day at least 4 hours.
+
+# 4/2/2025 
+* Programmed the ESP32 using the CP2102, connected it to the UART connectors that was set up previously on our PCB.
+* Issues with programming, need to add more of the pull up resistors and capacitors. Wanted to be able to program it as least as possible without soldering much, to test if it works
+* Started writing software for the initial event loop of the ESP32, need to read the values and serial print it.
+* Was able to serial print it
+* Initial event loop code:
+```
+        void loop() {
+
+  
+
+  
+
+  surfaceTemp = 0;
+
+  
+
+  airTemp = 0;
+
+  
+
+  rainAmount = 0;
+
+  
+
+  
+
+  surfaceTemp = readSurfaceTemperatureSensor();
+
+  
+
+  rainAmount = readRainSensor();
+
+  
+
+  airTemp = readAirTemperatureSensor();
+
+  
+
+  
+
+  /* check if temp sensor is valid value */
+
+  
+
+  if ((surfaceTemp <= -127.0) || (airTemp <= -127.0))
+
+  
+
+  {
+
+  
+
+    heaterState = false;
+
+  
+
+    updateSystemState();
+
+  
+
+    return;
+
+  
+
+  }
+
+  
+
+  
+
+  /* heater mode is ON */
+
+  
+
+  if (heaterState)
+
+  
+
+  {
+
+  
+
+    if (surfaceTemp >= surfaceTempOverheatThreshold)
+
+  
+
+    {
+
+  
+
+      heaterState = false;
+
+  
+
+    }
+
+  
+
+    updateSystemState();
+
+  
+
+    return;
+
+  
+
+  }
+
+  
+
+  
+
+  /* No water detected if true */
+
+  
+
+  if (rainAmount >= moistureThreshold)
+
+  
+
+  {
+
+  
+
+    heaterState = false;
+
+  
+
+    updateSystemState();
+
+  
+
+    return;
+
+  
+
+  }
+
+  
+
+  
+
+  if ((airTemp < airTempThreshold) || (surfaceTemp < surfaceTempThreshold))
+
+  
+
+  {
+
+  
+
+    heaterState = true;
+
+  
+
+  }
+
+  
+
+  else
+
+  
+
+  {
+
+  
+
+    heaterState = false;
+
+  
+
+  }
+
+  
+
+  updateSystemState();
+
+  
+
+}
+
+  
+
+  
+
+float readAirTemperatureSensor()
+
+  
+
+{
+
+  
+
+  airTemperatureSensor.requestTemperatures();
+
+  
+
+  float temperatureC = airTemperatureSensor.getTempCByIndex(0);  // Get temperature in Celsius
+
+  
+
+  
+
+  Serial.print("Air Temperature: ");
+
+  
+
+  Serial.print(temperatureC);
+
+  
+
+  Serial.println(" °C");
+
+  
+
+  return temperatureC;
+
+  
+
+}
+
+  
+
+  
+
+float readSurfaceTemperatureSensor()
+
+  
+
+{
+
+  
+
+  surfaceTemperatureSensor.requestTemperatures();
+
+  
+
+  float temperatureC = surfaceTemperatureSensor.getTempCByIndex(0);  // Get temperature in Celsius
+
+  
+
+  
+
+  Serial.print("Surface Temperature: ");
+
+  
+
+  Serial.print(temperatureC);
+
+  
+
+  Serial.println(" °C");
+
+  
+
+  return temperatureC;
+
+  
+
+}
+
+  
+
+  
+
+float readRainSensor()
+
+  
+
+{
+
+  
+
+  Serial.print("Raw value of rain sensor: "); // Print information message
+
+  
+
+  float rain = rainSensor.getRawValue();
+
+  
+
+  Serial.println(rain); // Prints raw value of rain sensor
+
+  
+
+  
+
+  return rain;
+
+  
+
+}
+
+  
+
+  
+
+void updateHeaterState()
+
+  
+
+{
+
+  
+
+  if (heaterState)
+
+  
+
+  {
+
+  
+
+    digitalWrite(MOSFET_CONTROL_PIN, HIGH);
+
+  
+
+  }
+
+  
+
+  else
+
+  
+
+  {
+
+  
+
+    digitalWrite(MOSFET_CONTROL_PIN, LOW);
+
+  
+
+  }
+
+  
+
+}
+```
+
+# 4/10/2025
+* Decided to make changes with the event loop.
+	* Once hazardous conditions are detected, we will ignore everything else and read the surface sensor temperature until it reaches our overheat threshold which is 10C.
+	* This is added as a check at the beginning of the event loop after reading the sensor readings
+```
+/* heater mode is ON */
+
+  if (heaterState)
+
+  {
+
+    if (surfaceTemp >= surfaceTempOverheatThreshold)
+
+    {
+
+      heaterState = false;
+
+    }
+
+    updateSystemState();
+
+    return;
+
+  }
+```
+* This will make sure that if the heater State is on, the system will keep heating until the surface temp reaches the overheat threshold before it can start reading again.
+* When testing readings from temperature sensors, it was not working. It would output 4095 which means that it is the default value and unreadable.
+* After reading the documentation of the DS18B20, it requires a 10k pull up resistor on the data pin https://www.analog.com/media/en/technical-documentation/data-sheets/ds18b20.pdf
+* Need to redo the PCB design to add the pull up resistor, here is the final PCB design
+	*![[Pasted image 20250508141828.png]]
+* The pull up resistors have been added and the PCB has been ordered.
+# 4/17/2025
+* Final PCB came in, waiting on Kahmil to finish soldering power subsystem
+* Soldered Control and Sensing Subsystems and added the 10k pull up resistors that are neccessesary.
+* After testing the event loop and adding the temperature values, the ESP32 was able to print out the correct values due to adding the pull up resistors
+
+# 4/25/2025
+* Met with group to test the entirety of our system with a cooler that James bought.
+* Talked over initial plans on what to add
+	* Waterproofing
+	* Using dry ice to get to sub-zero temperatures
+	* Functionality on the ESP32
+		* Add bluetooth to be able to print out the state of the system and the temperature values as well
+		* Add a way to change the thresholds wirelessly
+		* Add a way to save data to the csv file? 
+* Mistakes
+	* Unable to use dry ice
+		* too expensive
+		* cannot get to sub-zero temperatures
+* 
+	
+
+
