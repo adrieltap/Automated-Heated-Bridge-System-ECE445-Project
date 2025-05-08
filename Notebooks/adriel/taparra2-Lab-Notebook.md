@@ -628,11 +628,19 @@ void updateHeaterState()
 	* Another 5 minutes to heat up the bridge
 	* Then we have to wait for temperatures to go back to normal when the heaters turn off
 	* This is just for one iteration
+* Images of fully ran tests
+	* ![[Pasted image 20250508144816.png]]
+	* ![[Pasted image 20250508144837.png]]
+	* ![[Pasted image 20250508144846.png]]
+	* ![[Pasted image 20250508144859.png]]
+	* These images will be used during the presentation for the data analysis
 # 4/28/2025
 * Did the final demo
 
 # 5/3/2025 -5/4/2025
 * Practiced presentation, did the slides
+* Borrowed sam's heatgun to show uniformity in terms of heat
+	* ![[Pasted image 20250508144953.png]]
 * Dry runs
 
 
