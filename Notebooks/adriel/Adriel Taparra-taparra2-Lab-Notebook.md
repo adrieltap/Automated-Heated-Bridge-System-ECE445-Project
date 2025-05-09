@@ -551,7 +551,7 @@ void updateSystemState()
 	* Organize wires
 	* 0 points for complexity
 
-# 5/3/2025 -5/4/2025
+# 5/3/2025 -5/4/2025 - Gather Data for Presentations
 * Practiced presentation, did the slides
 * Borrowed sam's heatgun to show uniformity in terms of heat
 	* ![Image](HeatSpread.png)
