@@ -1,4 +1,4 @@
-# 2/16/2025
+# 2/16/2025 - Meeting with Group with Initial Design 
 
 * Met up as a group on a discord call from 3-5 PM. Talked about design choices, design review and how we are going to split work when presenting.
 * Design modifications if proposal does not get accepted.
@@ -54,7 +54,7 @@
 		* Fail safe option if there is too much ice and our system cannot catch up.
 		* Look into the temperatures allowed for our peripherals and parts.
 		* Placements of PCB, how much we will heat and how to scale it
-# 2/19/2025 
+# 2/19/2025 - Peer Review and Goal for end of the week
 
 *  Peer Reviewed GymHive Tracker group
 *  Different parts to consider:
@@ -64,7 +64,7 @@
 * Plan is to meet up on Friday to discuss with machine shop with how to approach the metal plate.
 * 
 
-# 2/23/2025
+# 2/23/2025 - Meeting with group for PCB parts and PCB Design
 
 * Meeting with group to discuss what parts are needed 
 * Our goal by the end of this meeting is to decide the parts we need so we can start creating the schematic for our PCB
@@ -91,7 +91,7 @@
 		- Conversation to ask to machine shop guy
 	- What will our plate look like
 	- Maybe what it could look like
-# 2/24/2025
+# 2/24/2025 - Assigned Control Subsystem
 
 * In charge of UI and Control SubSystem
 	* MCU
@@ -184,14 +184,19 @@ Thermocouple - measures what it touches
 		* Indicator that MoistureSensor goes below/above threshold
 * Button
 	* Make sure the button is open circuit if not pressed
-# 2/26/2025
+* Initial Schematic Design of Control Subsystem
+	* ![[Pasted image 20250508192416.png]]
+		* This was based on the example schematic in the ESP32 WROOM Documentation
+			* Can be found in "Module Schematics" or page 35 in this document: https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf
+	* The sensing subsystem should be pretty self-explanatory, probably will just need connectors for each pin.
+# 2/26/2025 - TA Meeting
 
 * TA was sick, but meet over zoom to discuss questions
 	* We can use the dev board during breadboard demo
 	* PCB review is optional
 	* Order parts through TA to get reimbursed
 
-# 2/27/2025
+# 2/27/2025 - Schematic Work
 
 * Worked on PCB schematic today, need to do this tomorrow:
 	* ADD LED to indicate there is power to PCB
@@ -199,20 +204,20 @@ Thermocouple - measures what it touches
 		* Other LED indicators?
 	* ADD test points
 
-# 3/8/2025
+# 3/8/2025 - Design Document work
 * Add design document stuff
 * Switched ESP32 MCU
 * PCB mistake, find VIN in the schematic!!! do not put it into 3.3V
 * Today working on breadboard demo
 
-# 3/21/2025
+# 3/21/2025 - PCB Design
 * Plan for modifying PCB of Control Subsystem
 	* Find VIN in the schematic, put it into 3.3V
 	* Check if the pins match from the previous schematic / PCB design
 		* Fix UART pin
 	* Check new example schematic
 	* Open the pins needed for programming 
-# 3/24/2025
+# 3/24/2025 - PCB Design Notes
 * More reminders for modifying PCB
 	* Debug pins
 	* Find a way to separate power and control subsystem
@@ -225,10 +230,10 @@ Thermocouple - measures what it touches
 	* Will use this to convert USB to UART
 		* https://www.silabs.com/interface/usb-bridges/classic/device.cp2102?tab=specs
 
-# 4/1/2025
+# 4/1/2025 - PCB Soldering
 * New PCB came in, soldered Control and Sensing Subsystem. Having trouble with placing the decoupling capacitors and hand soldering the ESP32, this took the whole day at least 4 hours.
 
-# 4/2/2025 
+# 4/2/2025 - PCB Programming
 * Programmed the ESP32 using the CP2102, connected it to the UART connectors that was set up previously on our PCB.
 * Issues with programming, need to add more of the pull up resistors and capacitors. Wanted to be able to program it as least as possible without soldering much, to test if it works
 * Started writing software for the initial event loop of the ESP32, need to read the values and serial print it.
@@ -237,123 +242,66 @@ Thermocouple - measures what it touches
 ```
 void loop() {
 
-  
-
   surfaceTemp = 0;
-
   airTemp = 0;
-
   rainAmount = 0;
 
-  
-
   surfaceTemp = readSurfaceTemperatureSensor();
-
   rainAmount = readRainSensor();
-
   airTemp = readAirTemperatureSensor();
 
-  
-
   /* check if temp sensor is valid value */
-
   if ((surfaceTemp <= -127.0) || (airTemp <= -127.0))
-
   {
-
     heaterState = false;
-
     updateSystemState();
-
     return;
-
   }
-
-  
-
   /* heater mode is ON */
-
   if (heaterState)
-
   {
-
     if (surfaceTemp >= surfaceTempOverheatThreshold)
-
     {
-
       heaterState = false;
-
     }
-
     updateSystemState();
-
     return;
-
   }
-
-  
 
   /* No water detected if true */
-
   if (rainAmount >= moistureThreshold)
-
   {
-
     heaterState = false;
-
     updateSystemState();
-
     return;
-
   }
-
-  
-  
 
   if ((airTemp < airTempThreshold) || (surfaceTemp < surfaceTempThreshold))
-
   {
-
     heaterState = true;
-
   }
-
   else
-
   {
-
     heaterState = false;
-
   }
-
   updateSystemState();
-
 }   
 ```
 
-# 4/10/2025
+# 4/10/2025 - Event Loop
 * Decided to make changes with the event loop.
 	* Once hazardous conditions are detected, we will ignore everything else and read the surface sensor temperature until it reaches our overheat threshold which is 10C.
 	* This is added as a check at the beginning of the event loop after reading the sensor readings
 ```
 /* heater mode is ON */
-
   if (heaterState)
-
   {
-
     if (surfaceTemp >= surfaceTempOverheatThreshold)
-
     {
-
       heaterState = false;
-
     }
-
     updateSystemState();
-
     return;
-
   }
 ```
 * This will make sure that if the heater State is on, the system will keep heating until the surface temp reaches the overheat threshold before it can start reading again.
@@ -363,12 +311,12 @@ void loop() {
 
 	*![Image](PCB.png)
 * The pull up resistors have been added and the PCB has been ordered.
-# 4/17/2025
+# 4/17/2025 - PCB Solder
 * Final PCB came in, waiting on Kahmil to finish soldering power subsystem
 * Soldered Control and Sensing Subsystems and added the 10k pull up resistors that are neccessesary.
 * After testing the event loop and adding the temperature values, the ESP32 was able to print out the correct values due to adding the pull up resistors
 
-# 4/25/2025
+# 4/25/2025 - Testing and Gathering Data
 * Met with group to test the entirety of our system with a cooler that James bought.
 * Talked over initial plans on what to add
 	* Waterproofing
@@ -385,369 +333,184 @@ void loop() {
 * There are some bluetooth code in there, but I did not add the bluetooth code.
 ```
 #include <OneWire.h>
-
 #include <DallasTemperature.h>
-
 #include "Simple-rain-sensor-easyC-SOLDERED.h"
-
 #include <driver/adc.h>
-
 #include "Callbacks.h"
-
-  
-
 #include <BLEDevice.h>
-
 #include <BLEServer.h>
-
 #include <BLEUtils.h>
-
 #include <BLE2902.h>
 
-  
-
 /* ESP32 Pins */
-
 #define AIR_TEMPERATURE_SENSOR_PIN 19
-
 #define SURFACE_TEMPERATURE_SENSOR_PIN 17
-
 #define RAIN_SENSOR_DIGITAL_PIN 34
-
 #define RAIN_SENSOR_ANALOG_PIN 35
-
 #define RAIN_SENSOR_DRY_VAL 1800
-
 #define RAIN_SENSOR_LED_PIN 21
-
 #define MOSFET_CONTROL_PIN 26
 
-  
-  
-
 /* LOOP timer */
-
 #define INTERVAL 3000
-
-  
-  
-
 #define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-
 #define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
-  
-
 OneWire airTemperatureOneWire(AIR_TEMPERATURE_SENSOR_PIN);
-
 OneWire surfaceTemperatureOneWire(SURFACE_TEMPERATURE_SENSOR_PIN);
-
 DallasTemperature airTemperatureSensor(&airTemperatureOneWire);
-
 DallasTemperature surfaceTemperatureSensor(&surfaceTemperatureOneWire);
-
-  
-
 SimpleRainSensor rainSensor(RAIN_SENSOR_ANALOG_PIN);
 
 BLECharacteristic* pCharacteristic;
-
 float airTemp, surfaceTemp, rainAmount;
-
 bool heaterState = false;
-
   
-
 void setup() {
-
   Serial.begin(115200);  // Start serial monitor
-
-  
-
   /* Initialize the air and surface temperature sensors */
-
   airTemperatureSensor.begin();
-
   surfaceTemperatureSensor.begin();
-
-  
-
   /* Initialize rain sensor, adc width and pin mode*/
-
   rainSensor.begin();
-
   rainSensor.setADCWidth(10);
-
   pinMode(RAIN_SENSOR_DIGITAL_PIN, INPUT_PULLUP);
-
   pinMode(AIR_TEMPERATURE_SENSOR_PIN, INPUT_PULLUP);
-
   pinMode(SURFACE_TEMPERATURE_SENSOR_PIN, INPUT_PULLUP);
-
   pinMode(MOSFET_CONTROL_PIN, OUTPUT);
 
-  
-
   //---BLE Setup---//
-
   BLEDevice::init("ESP32_BLE");
-
   BLEServer* pServer = BLEDevice::createServer();
-
   BLEService* pService = pServer->createService(SERVICE_UUID);
 
   // Create a characteristic with read, write, and notify properties.
-
   pCharacteristic = pService->createCharacteristic(
-
                       CHARACTERISTIC_UUID,
-
                       BLECharacteristic::PROPERTY_READ |
-
                       BLECharacteristic::PROPERTY_WRITE |
-
                       BLECharacteristic::PROPERTY_NOTIFY
-
                     );
-
   pCharacteristic->addDescriptor(new BLE2902());
-
   pCharacteristic->setCallbacks(new Callbacks());
-
   pService->start();
-
   BLEDevice::getAdvertising()->start();
-
   Serial.println("BLE Server started and advertising...");
-
 }
-
-  
 
 void loop() {
 
-  
-
   surfaceTemp = 0;
-
   airTemp = 0;
-
   rainAmount = 0;
-
-  
-
+  
   surfaceTemp = readSurfaceTemperatureSensor();
-
   rainAmount = readRainSensor();
-
   airTemp = readAirTemperatureSensor();
 
-  
-
   /* check if temp sensor is valid value */
-
   if ((surfaceTemp <= -127.0) || (airTemp <= -127.0))
-
   {
-
     heaterState = false;
-
     updateSystemState();
-
     return;
-
   }
-
-  
 
   /* heater mode is ON */
-
   if (heaterState)
-
   {
-
     if (surfaceTemp >= surfaceTempOverheatThreshold)
-
     {
-
       heaterState = false;
-
     }
-
     updateSystemState();
-
     return;
-
   }
-
-  
-
+  
   /* No water detected if true */
-
   if (rainAmount >= moistureThreshold)
-
   {
-
     heaterState = false;
-
     updateSystemState();
-
     return;
-
   }
-
-  
-  
 
   if ((airTemp < airTempThreshold) || (surfaceTemp < surfaceTempThreshold))
-
   {
 
     heaterState = true;
-
   }
-
   else
-
   {
-
     heaterState = false;
-
   }
-
   updateSystemState();
-
 }
-
-  
 
 float readAirTemperatureSensor()
-
 {
-
   airTemperatureSensor.requestTemperatures();
-
+  
   float temperatureC = airTemperatureSensor.getTempCByIndex(0);  // Get temperature in Celsius
 
-  
-
   Serial.print("Air Temperature: ");
-
   Serial.print(temperatureC);
-
   Serial.println(" °C");
-
   return temperatureC;
-
 }
-
-  
 
 float readSurfaceTemperatureSensor()
-
 {
-
   surfaceTemperatureSensor.requestTemperatures();
-
   float temperatureC = surfaceTemperatureSensor.getTempCByIndex(0);  // Get temperature in Celsius
-
-  
-
+  
   Serial.print("Surface Temperature: ");
-
   Serial.print(temperatureC);
-
   Serial.println(" °C");
-
   return temperatureC;
-
 }
-
-  
 
 float readRainSensor()
-
 {
-
   Serial.print("Raw value of rain sensor: "); // Print information message
-
   float rain = rainSensor.getRawValue();
-
   Serial.println(rain); // Prints raw value of rain sensor
-
-  
-
   return rain;
-
 }
-
-  
 
 void updateHeaterState()
-
 {
-
   if (heaterState)
-
   {
-
     digitalWrite(MOSFET_CONTROL_PIN, HIGH);
-
   }
-
   else
-
   {
-
     digitalWrite(MOSFET_CONTROL_PIN, LOW);
-
   }
-
 }
-
-  
 
 void sendValues() {
-
-  
-
   char buffer[32];
-
   sprintf(buffer, "%.2f;%.2f;%.2f; %.2f", surfaceTemp, airTemp, rainAmount, (float)heaterState);
-
   String valueString = String(buffer);
 
-  
-  
-
   // Set and notify the new value.
-
   pCharacteristic->setValue(valueString.c_str());
-
   pCharacteristic->notify();
-
   Serial.println("Sent values...");
-
 }
 
-  
-
 void updateSystemState()
-
 {
-
   updateHeaterState();
-
   sendValues();
-
   Serial.println("");
-
   delay(INTERVAL);  // Wait 2 seconds before reading again
-
 }
 ```
 
-# 4/26/2025
+# 4/26/2025 - More Notes for Final Demo
 * Added functionality to save CSV files using python csv library
 * Did some more testing and getting test data for presentation
 * Notes for each component on Control Subsystem and Sensing Subsystem and what they do
@@ -764,29 +527,34 @@ void updateSystemState()
 		* Returns 0-4095 value
 		* Due to testing, we decided that 1800 is our threshold for the water level
 
-# 4/27/2025
+# 4/27/2025 - Testing without Dry Ice
 * More testing and getting test data
 	* Testing takes a while since we have to wait 5 minutes to get the temperatures low enough
 	* Another 5 minutes to heat up the bridge
 	* Then we have to wait for temperatures to go back to normal when the heaters turn off
 	* This is just for one iteration
 * Images of fully ran tests
-	* ![Image][TestData1.png]
+	* ![Image](TestData1.png)
 		* The surface temperature decreases as we put ice on the bridge. Once the surface temperature decreases below the threshold, we can see that the heater band turns ON and the surface temperature exponentially rises up to to reach the overheat threshold. The temperature then keeps increasing as the heat spreads and slowly levels up since we turn off the heater once the surface temperature reaches 10C.
-	* ![Image][TestData2.png]
+	* ![Image](TestData2.png)
 		* The heaters turn on when the rain amount goes below the threshold that we have set. As stated, we changed the threshold to be 3500 since we want our sensor to be super sensitive to water.
-	*  ![Image][TestData3.png]
+	*  ![Image](TestData3.png)
 		* This is a graph of the time, as you can see we raised the temperature by 24 deg C in around 300 seconds which is about 5 minutes which accomplishes one of our High Level Requirements
-	* ![Image][TestData4.png]
+	* ![Image](TestData4.png)
 		* A more detailed part to add to the slides, this can be used as a key so that it is easier to explain during the presentation
 	* These images will be used during the presentation for the data analysis
-# 4/28/2025
+# 4/28/2025 - Final Demo
 * Did the final demo
+* Notes from Professor and TA suggestions
+	* Ask Sam for heatgun to show uniformity
+	* Show relationtionship between ice and how quickly the bridge heats up
+	* Organize wires
+	* 0 points for complexity
 
 # 5/3/2025 -5/4/2025
 * Practiced presentation, did the slides
 * Borrowed sam's heatgun to show uniformity in terms of heat
-	* ![Image][HeatSpread.png]
+	* ![Image](HeatSpread.png)
 		* This timelapse is about 5-8 mins, at the end the heat spreads evenly across the bridge. This was used using Sam's heat camera. Sam is also a student in ECE 445.
 * Dry runs
 
