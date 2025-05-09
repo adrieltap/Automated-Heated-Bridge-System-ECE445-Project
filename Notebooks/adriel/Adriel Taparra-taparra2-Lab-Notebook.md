@@ -235,337 +235,100 @@ Thermocouple - measures what it touches
 * Was able to serial print it
 * Initial event loop code:
 ```
-        void loop() {
-
-  
+void loop() {
 
   
 
   surfaceTemp = 0;
 
-  
-
   airTemp = 0;
-
-  
 
   rainAmount = 0;
 
   
 
-  
-
   surfaceTemp = readSurfaceTemperatureSensor();
 
-  
-
   rainAmount = readRainSensor();
-
-  
 
   airTemp = readAirTemperatureSensor();
 
   
 
-  
-
   /* check if temp sensor is valid value */
-
-  
 
   if ((surfaceTemp <= -127.0) || (airTemp <= -127.0))
 
-  
-
   {
-
-  
 
     heaterState = false;
 
-  
-
     updateSystemState();
-
-  
 
     return;
 
-  
-
   }
-
-  
 
   
 
   /* heater mode is ON */
 
-  
-
   if (heaterState)
-
-  
 
   {
 
-  
-
     if (surfaceTemp >= surfaceTempOverheatThreshold)
-
-  
 
     {
 
-  
-
       heaterState = false;
-
-  
 
     }
 
-  
-
     updateSystemState();
-
-  
 
     return;
 
-  
-
   }
-
-  
 
   
 
   /* No water detected if true */
 
-  
-
   if (rainAmount >= moistureThreshold)
-
-  
 
   {
 
-  
-
     heaterState = false;
-
-  
 
     updateSystemState();
 
-  
-
     return;
-
-  
 
   }
 
   
-
   
 
   if ((airTemp < airTempThreshold) || (surfaceTemp < surfaceTempThreshold))
 
-  
-
   {
-
-  
 
     heaterState = true;
 
-  
-
   }
-
-  
 
   else
 
-  
-
   {
-
-  
 
     heaterState = false;
 
-  
-
   }
-
-  
 
   updateSystemState();
 
-  
-
-}
-
-  
-
-  
-
-float readAirTemperatureSensor()
-
-  
-
-{
-
-  
-
-  airTemperatureSensor.requestTemperatures();
-
-  
-
-  float temperatureC = airTemperatureSensor.getTempCByIndex(0);  // Get temperature in Celsius
-
-  
-
-  
-
-  Serial.print("Air Temperature: ");
-
-  
-
-  Serial.print(temperatureC);
-
-  
-
-  Serial.println(" °C");
-
-  
-
-  return temperatureC;
-
-  
-
-}
-
-  
-
-  
-
-float readSurfaceTemperatureSensor()
-
-  
-
-{
-
-  
-
-  surfaceTemperatureSensor.requestTemperatures();
-
-  
-
-  float temperatureC = surfaceTemperatureSensor.getTempCByIndex(0);  // Get temperature in Celsius
-
-  
-
-  
-
-  Serial.print("Surface Temperature: ");
-
-  
-
-  Serial.print(temperatureC);
-
-  
-
-  Serial.println(" °C");
-
-  
-
-  return temperatureC;
-
-  
-
-}
-
-  
-
-  
-
-float readRainSensor()
-
-  
-
-{
-
-  
-
-  Serial.print("Raw value of rain sensor: "); // Print information message
-
-  
-
-  float rain = rainSensor.getRawValue();
-
-  
-
-  Serial.println(rain); // Prints raw value of rain sensor
-
-  
-
-  
-
-  return rain;
-
-  
-
-}
-
-  
-
-  
-
-void updateHeaterState()
-
-  
-
-{
-
-  
-
-  if (heaterState)
-
-  
-
-  {
-
-  
-
-    digitalWrite(MOSFET_CONTROL_PIN, HIGH);
-
-  
-
-  }
-
-  
-
-  else
-
-  
-
-  {
-
-  
-
-    digitalWrite(MOSFET_CONTROL_PIN, LOW);
-
-  
-
-  }
-
-  
-
-}
+}   
 ```
 
 # 4/10/2025
@@ -597,7 +360,8 @@ void updateHeaterState()
 * When testing readings from temperature sensors, it was not working. It would output 4095 which means that it is the default value and unreadable.
 * After reading the documentation of the DS18B20, it requires a 10k pull up resistor on the data pin https://www.analog.com/media/en/technical-documentation/data-sheets/ds18b20.pdf
 * Need to redo the PCB design to add the pull up resistor, here is the final PCB design
-	*![[Pasted image 20250508141828.png]]
+
+	*![Image](PCB.png)
 * The pull up resistors have been added and the PCB has been ordered.
 # 4/17/2025
 * Final PCB came in, waiting on Kahmil to finish soldering power subsystem
@@ -986,6 +750,19 @@ void updateSystemState()
 # 4/26/2025
 * Added functionality to save CSV files using python csv library
 * Did some more testing and getting test data for presentation
+* Notes for each component on Control Subsystem and Sensing Subsystem and what they do
+	* ESP32-WROOM
+		* Chosen because of its wireless and bluetooth capabilities
+		* This is useful because our system will be in a cooler to simulate rigid temperatures, we dont want to keep opening it and closing
+	* DS18B20 Temperature Sensor
+		* Chosen because it is rated for +- 0.5 C accuracy
+		* Waterproof
+		* 3.3V Power
+		* We will have two sensors, one air temperature and one surface
+	* Rain Sensor
+		* Chosen because it can detect how much water is on the sensor
+		* Returns 0-4095 value
+		* Due to testing, we decided that 1800 is our threshold for the water level
 
 # 4/27/2025
 * More testing and getting test data
@@ -994,10 +771,14 @@ void updateSystemState()
 	* Then we have to wait for temperatures to go back to normal when the heaters turn off
 	* This is just for one iteration
 * Images of fully ran tests
-	* ![[Pasted image 20250508144816.png]]
-	* ![[Pasted image 20250508144837.png]]
-	* ![[Pasted image 20250508144846.png]]
-	* ![[Pasted image 20250508144859.png]]
+	* ![Image][TestData1.png]
+		* The surface temperature decreases as we put ice on the bridge. Once the surface temperature decreases below the threshold, we can see that the heater band turns ON and the surface temperature exponentially rises up to to reach the overheat threshold. The temperature then keeps increasing as the heat spreads and slowly levels up since we turn off the heater once the surface temperature reaches 10C.
+	* ![Image][TestData2.png]
+		* The heaters turn on when the rain amount goes below the threshold that we have set. As stated, we changed the threshold to be 3500 since we want our sensor to be super sensitive to water.
+	*  ![Image][TestData3.png]
+		* This is a graph of the time, as you can see we raised the temperature by 24 deg C in around 300 seconds which is about 5 minutes which accomplishes one of our High Level Requirements
+	* ![Image][TestData4.png]
+		* A more detailed part to add to the slides, this can be used as a key so that it is easier to explain during the presentation
 	* These images will be used during the presentation for the data analysis
 # 4/28/2025
 * Did the final demo
@@ -1005,7 +786,8 @@ void updateSystemState()
 # 5/3/2025 -5/4/2025
 * Practiced presentation, did the slides
 * Borrowed sam's heatgun to show uniformity in terms of heat
-	* ![[Pasted image 20250508144953.png]]
+	* ![Image][HeatSpread.png]
+		* This timelapse is about 5-8 mins, at the end the heat spreads evenly across the bridge. This was used using Sam's heat camera. Sam is also a student in ECE 445.
 * Dry runs
 
 
